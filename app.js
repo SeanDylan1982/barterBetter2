@@ -25,7 +25,7 @@ function showEntries() {
         <a href="${dataEntry.url}" target="_blank">
         <img src="${dataEntry.image}" alt="">
         <h2 id="adtitle">${dataEntry.title}</h2>
-        <span id="category">${dataEntry.category}</span> <span id="region">${dataEntry.region}</span> <span id="contact">${dataEntry.contact}</span>
+        <span id="category">${dataEntry.category}</span> <span id="region">${dataEntry.region}</span>
         <p id="adbody">${dataEntry.body}</p>
         </a>
       </div>

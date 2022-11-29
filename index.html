@@ -15,7 +15,9 @@
   <div class="app-container">
     <header id="header">
       <button type="submit" value="submit" class="btn btn-regular" id="login"><div data-netlify-identity-button></div></button>
-      
+      <div class="login-container" id="login">
+        <a href="./login.html"><button class="btn btn-regular" id="login-btn" type="submit" value="submit"><span>Login <i class="fa fa-user"></i></span></button></a>
+      </div>
       <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
       <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
       <a href="#">
@@ -29,6 +31,75 @@
         </div>
         <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
       </div>
+      <div class="filters-container" id="filters-container">
+        <div class="clear" id="clear-filter">
+          <label for="clear"></label>
+          <button type="submit" value="submit" name="clear" id="clear-filters" class="btn btn-regular">Clear all filters</button>
+          <!-- <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          </div> -->
+        </div>
+        <div class="category" id="category-filter">
+          <label for="category"></label>
+          <fieldset id="category-section">
+            <legend>Category</legend>
+            <div>
+              <input type="checkbox" id="coding" name="interest" value="coding" />
+              <label for="coding">Coding</label>
+            </div>
+            <div>
+              <input type="checkbox" id="music" name="interest" value="music" />
+              <label for="music">Music</label>
+            </div>
+          </fieldset>
+          
+          <!-- <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          </div> -->
+        </div>
+        <div class="region" id="region-filter">
+          <fieldset id="region-section">
+            <legend>Region</legend>
+            <div>
+              <input type="checkbox" id="ec" name="ec" checked>
+              <label for="ec"><p> Eastern Cape</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="fs" name="fs">
+              <label for="fs"><p> Free State</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="gp" name="gp">
+              <label for="gp"><p> Gauteng</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="kzn" name="kzn">
+              <label for="kzn"><p> Kwa-Zulu Natal</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="lp" name="lp">
+              <label for="lp"><p> Limpopo</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="mp" name="mp">
+              <label for="mp"><p> Mpumalanga</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="nc" name="nc">
+              <label for="nc"><p> Northern Cape</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="nw" name="nw">
+              <label for="nw"><p> North West</p></label>
+            </div>
+            <div>
+              <input type="checkbox" id="wc" name="wc">
+              <label for="wc"><p> Western Cape</p></label>
+            </div>
+        </fieldset>
+        </div>
+      </div>
+      
     </header>
     <main>
       <div class="container-fluid" id="app-container">

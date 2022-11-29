@@ -9,7 +9,7 @@ header {
   margin: 0;
   width: 100vw;
   height: 50px;
-  background-color: #182455;
+  background-color:  #6245e5;
   color: #f1f1f1;
   text-decoration: none;
   z-index: 2;
@@ -24,31 +24,33 @@ header #login a {
   width: 120px;
   height: 40px;
   text-decoration: none;
-  background-color: #3d58c4;
+  background-color:  #6245e5;
   color: #f1f1f1;
   border-radius: 10px;
 }
 
 header #login a:hover {
   background-color: #f1f1f1;
-  color: #3d58c4;
+  color: #d8db1c;
 }
 
 header input {
   position: fixed;
-  top: 2px;
+  top: 7px;
   left: 20%;
   margin: 0;
   width: 60%;
-  height: 46px;
+  height: 36px;
   background-color: #f1f1f1;
   border-radius: 10px;
 }
 
 header #magnifying-glass {
   position: absolute;
-  top: 6px;
+  top: 9px;
   left: 76%;
+  width: 25px;
+  height: 25px;
   background-color: #f1f1f1;
   color: #1a1a1a;
 }
@@ -58,15 +60,15 @@ header #sidebar-hamburger {
   top: 5px;
   left: 5px;
   background-color: #f1f1f1;
-  color: #0c7c02;
-  border: 1px solid #00a72a;
+  color:  #6245e5;
+  border: 1px solid #d8db1c;
 }
 
 #logo h2 {
   position: absolute;
   top: 2px;
   left: 80px;
-  color: #f1f1f1;
+  color: #d8db1c;
   font-size: 2rem;
   font-weight: 900;
 }
@@ -74,22 +76,22 @@ header #sidebar-hamburger {
 #sidebar {
   position: absolute;
   top: 0;
-  width: 320px;
+  width: 312px;
   height: 100vh;
-  border: 1px solid #1a1a1a;
-  background-color: #182455aa;
-  color: #1a1a1a;
+  border: 0 solid #d8db1c;
+  background-color:  #6245e5aa;
+  color: #d8db1c;
   visibility: hidden;
+  z-index: 2;
 }
 
 #sidebar #logo h2 {
   position: absolute;
   top: 1px;
   left: 79px;
-  color: #99e48f;
+  color: #d8db1c;
   font-size: 2rem;
   font-weight: 900;
-  text-shadow: 1px 1px 20px #f1f1f1;
 }
 
 #sidebar-close-btn {
@@ -104,18 +106,18 @@ header #sidebar-hamburger {
 
 #adentry {
   position: relative;
-  top: 80px;
+  top: 45px;
   left: -27px;
-  height: 200px;
-  width: 60%;
+  height: 180px;
+  width: 61%;
   border-bottom: 1px solid #1a1a1a66;
   margin: 30px 20%;
 }
 
 #adentry img {
   position: relative;
-  top: 6px;
-  left: 3px;
+  top: -2px;
+  left: 0;
   height: 180px;
   width: 180px;
   margin: 1px;
@@ -124,7 +126,7 @@ header #sidebar-hamburger {
 
 #adentry h2 {
   position: absolute;
-  top: 1px;
+  top: -10px;
   font-size: 2.3rem;
   font-weight: 600;
   left: 200px;
@@ -136,6 +138,7 @@ header #sidebar-hamburger {
 
 #adentry span {
   position: absolute;
+  top: 35px;
   font-size: 1rem;
   height: 180px;
   width: 180px;
@@ -146,30 +149,29 @@ header #sidebar-hamburger {
 
 #category {
   position: absolute;
-  top: 50px;
+  top: 45px;
   left: 195px;
 }
 
 #region {
   position: absolute;
-  top: 50px;
-  left: 500px;
+  left: 840px;
 }
 
-#contact {
+#timestamp {
   position: absolute;
-  top: 50px;
-  left: 795px;
+  left: 840px;
 }
 
 #adentry #adbody {
   position: relative;
   color: #1a1a1a !important;
-  top: -100px;
+  top: -110px;
   left: 200px;
   height: 110px;
   width: 78%;
   margin: 1px;
+  font-size: .9rem;
 }
 
 #paginated-list {
@@ -182,7 +184,7 @@ footer {
   width: 100vw;
   height: 50px;
   z-index: 2;
-  background-color: #182455;
+  background-color:  #6245e5;
   color: #f1f1f1;
 }
 
@@ -212,7 +214,7 @@ footer #back-to-top:hover {
 footer button:hover {
   background-color: #f1f1f1;
   color: #1a1a1a;
-  border: 3px solid #3d58c4;
+  border: 3px solid  #6245e5;
 }
 
 .pagination-container {
@@ -229,6 +231,7 @@ footer button:hover {
 .pagination-button{
   position: relative;
   left: 740px;
+  bottom: 2px;
   color: #f1f1f1;
   justify-content: center;
   font-size: 1.1rem;
@@ -251,5 +254,185 @@ footer button:hover {
 
 .pagination-number.active {
   color: #fff;
-  background: #0085b6;
+  background:  #6245e5;
+}
+
+#login p {
+  position: relative;
+  font-size: 1.5rem;
+  /* top: -29px; */
+  /* right: -1300px; */
+  width: 200px;
+  height: 45px;
+  color: #f1f1f1;
+}
+
+#login span {
+  position: relative;
+  font-size: 1.3rem;
+  top: -3px;
+  right: -10px;
+  width: 200px;
+  height: 45px;
+  background-color:  #6245e5;
+  color: #f1f1f1;
+}
+
+#login span:hover {
+  background-color: #f1f1f1;
+  color: #1a1a1a;
+}
+
+#form-container {
+  position: relative;
+  top: 0;
+  left: 30%;
+  height: 600px;
+  width: 600px;
+  border: 1px solid  #6245e5;
+  background-color: #f1f1f155;
+}
+
+#form-container button {
+  position: relative;
+  left: 5px;
+  background-color:  #6245e5;
+}
+
+#loginMain {
+  position: relative;
+  top: 80px;
+  background: url(./img/various-hands-final.png);
+}
+
+.form-control {
+  width: 100%;
+}
+
+.slidecontainer {
+  position: relative;
+  top: 100px;
+  left: 10px;
+  height: 2px;
+  background-color: #6245e5;
+  border: 0 solid #1a1a1a;
+  width: 280px; /* Width of the outside container */
+}
+
+.slidecontainer input {
+  position: relative;
+  top: -16px;
+  left: 0;
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 2px; /* Specified height */
+  background: #6245e5; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
+  background-color: #d8db1c; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
+  background: #d8db1c; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+#filters-container #category-filter label {
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  position: relative;
+  top: 40px;
+  left: 110px;
+}
+
+#filters-container #region-filter label,
+#filters-container #region-filter p {
+  font: 1rem 'Fira Sans', sans-serif;
+  margin: .1rem;
+  color: #1a1a1a;
+  font-size: .9rem;
+  position: relative;
+  top: -5px;
+  left: -435px;
+}
+
+#filters-container #category-filter label,
+#filters-container #category-filter p {
+  font: 1rem 'Fira Sans', sans-serif;
+  margin: .1rem;
+  color: #1a1a1a;
+  font-size: .9rem;
+  position: relative;
+  top: -30px;
+  left: -870px;
+}
+
+#filters-container #region-section input {
+  margin: .1rem;
+  color: #1a1a1a;
+  font-size: .5rem;
+  position: relative;
+  top: 0;
+  left: -420px;
+}
+
+#filters-container #category-section input {
+  margin: .1rem;
+  color: #1a1a1a;
+  font-size: .5rem;
+  position: relative;
+  top: -20px;
+  left: -420px;
+}
+
+#category-section legend {
+  position: relative;
+  color: #1a1a1a;
+  top: -15px;
+  left: 10px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+#region-section legend {
+  position: relative;
+  color: #1a1a1a;
+  top: 0;
+  left: 10px;
+  font-weight: bold;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+
+#clear-filter button {
+  position: relative;
+  font-size: 1.8rem;
+  top: 30px;
+  left: 50px;
 }
