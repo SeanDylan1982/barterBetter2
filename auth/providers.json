@@ -42,5 +42,20 @@
         "redirect_uris": [
             "https://barter-better-basic.netlify.app/redirect.html"
         ]
+    },
+    "oauth2-google": {
+        "name": "oauth2-google",
+        "type": "oauth2-google",
+        "config": {
+            "clientId": "bbdb2",
+            "openId": true
+        },
+        "secret_config": {
+            "clientSecret": "LL0921jj"
+        },
+        "disabled": false,
+        "redirect_uris": [
+            "https://barter-better-basic.netlify.app/redirect.html"
+        ]
     }
 }
