@@ -105,6 +105,7 @@ header #sidebar-hamburger {
 #adentry {
   position: relative;
   top: 80px;
+  left: -27px;
   height: 200px;
   width: 60%;
   border-bottom: 1px solid #1a1a1a66;
