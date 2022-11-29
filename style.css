@@ -1,0 +1,254 @@
+html a {
+  text-decoration: none;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: #182455;
+  color: #f1f1f1;
+  text-decoration: none;
+  z-index: 2;
+}
+
+header #login a {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  margin: 0;
+  font-size: 1.5rem;
+  width: 120px;
+  height: 40px;
+  text-decoration: none;
+  background-color: #3d58c4;
+  color: #f1f1f1;
+  border-radius: 10px;
+}
+
+header #login a:hover {
+  background-color: #f1f1f1;
+  color: #3d58c4;
+}
+
+header input {
+  position: fixed;
+  top: 2px;
+  left: 20%;
+  margin: 0;
+  width: 60%;
+  height: 46px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+header #magnifying-glass {
+  position: absolute;
+  top: 6px;
+  left: 76%;
+  background-color: #f1f1f1;
+  color: #1a1a1a;
+}
+
+header #sidebar-hamburger {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: #f1f1f1;
+  color: #0c7c02;
+  border: 1px solid #00a72a;
+}
+
+#logo h2 {
+  position: absolute;
+  top: 2px;
+  left: 80px;
+  color: #f1f1f1;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+#sidebar {
+  position: absolute;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  border: 1px solid #1a1a1a;
+  background-color: #182455aa;
+  color: #1a1a1a;
+  visibility: hidden;
+}
+
+#sidebar #logo h2 {
+  position: absolute;
+  top: 1px;
+  left: 79px;
+  color: #99e48f;
+  font-size: 2rem;
+  font-weight: 900;
+  text-shadow: 1px 1px 20px #f1f1f1;
+}
+
+#sidebar-close-btn {
+  position: absolute;
+  top: 4px;
+  width: 41px;
+  height: 39px;
+  left: 5px;
+  color: #f1f1f1;
+  border: 2px solid #ff0000;
+}
+
+#adentry {
+  position: relative;
+  top: 80px;
+  height: 200px;
+  width: 60%;
+  border-bottom: 1px solid #1a1a1a66;
+  margin: 30px 20%;
+}
+
+#adentry img {
+  position: relative;
+  top: 6px;
+  left: 3px;
+  height: 180px;
+  width: 180px;
+  margin: 1px;
+  border: 1px solid #1a1a1a;
+}
+
+#adentry h2 {
+  position: absolute;
+  top: 1px;
+  font-size: 2.3rem;
+  font-weight: 600;
+  left: 200px;
+  height: 180px;
+  width: 70%;
+  margin: 1px;
+  color: #1a1a1a !important;
+}
+
+#adentry span {
+  position: absolute;
+  font-size: 1rem;
+  height: 180px;
+  width: 180px;
+  padding: 0 10px;
+  justify-content: space-between;
+  color: #1a1a1a !important;
+}
+
+#category {
+  position: absolute;
+  top: 50px;
+  left: 195px;
+}
+
+#region {
+  position: absolute;
+  top: 50px;
+  left: 500px;
+}
+
+#contact {
+  position: absolute;
+  top: 50px;
+  left: 795px;
+}
+
+#adentry #adbody {
+  position: relative;
+  color: #1a1a1a !important;
+  top: -100px;
+  left: 200px;
+  height: 110px;
+  width: 78%;
+  margin: 1px;
+}
+
+#paginated-list {
+  list-style: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 50px;
+  z-index: 2;
+  background-color: #182455;
+  color: #f1f1f1;
+}
+
+footer #back-to-top {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  width: 42px;
+  height: 42px;
+  z-index: 3;
+  color: #f1f1f1;
+  border-radius: 5px;
+  scroll-behavior: smooth;
+}
+
+footer #back-to-top:hover {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  width: 42px;
+  height: 42px;
+  z-index: 3;
+  color: #1a1a1a;
+  border-radius: 5px;
+}
+
+footer button:hover {
+  background-color: #f1f1f1;
+  color: #1a1a1a;
+  border: 3px solid #3d58c4;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.pagination-number,
+.pagination-button{
+  position: relative;
+  left: 740px;
+  color: #f1f1f1;
+  justify-content: center;
+  font-size: 1.1rem;
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  margin: 0.25rem 0.25rem;
+  cursor: pointer;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: .2rem;
+}
+
+.pagination-number:hover,
+.pagination-button:not(.disabled):hover {
+  color: #1a1a1a;
+  background: #fff;
+}
+
+.pagination-number.active {
+  color: #fff;
+  background: #0085b6;
+}
