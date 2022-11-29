@@ -14,5 +14,33 @@
             "resetPasswordUrl": "https://barter-better-basic.netlify.app/reset.html"
         },
         "disabled": false
+    },
+    "oauth2-facebook": {
+        "name": "oauth2-facebook",
+        "type": "oauth2-facebook",
+        "config": {
+            "clientId": "bbdb2"
+        },
+        "secret_config": {
+            "clientSecret": "LL0921jj"
+        },
+        "disabled": false,
+        "metadata_fields": [
+            {
+                "required": false,
+                "name": "name"
+            },
+            {
+                "required": false,
+                "name": "picture"
+            },
+            {
+                "required": false,
+                "name": "email"
+            }
+        ],
+        "redirect_uris": [
+            "https://barter-better-basic.netlify.app/redirect.html"
+        ]
     }
 }
