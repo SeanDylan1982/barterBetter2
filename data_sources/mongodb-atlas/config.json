@@ -4,7 +4,7 @@
     "config": {
         "clusterName": "Cluster0",
         "readPreference": "primary",
-        "wireProtocolEnabled": false
+        "wireProtocolEnabled": true
     },
     "version": 1
 }
