@@ -1,0 +1,7 @@
+[
+    {
+        "name": "newUser",
+        "private": false,
+        "disable_arg_logs": true
+    }
+]
