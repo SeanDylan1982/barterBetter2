@@ -3,5 +3,16 @@
         "name": "api-key",
         "type": "api-key",
         "disabled": true
+    },
+    "local-userpass": {
+        "name": "local-userpass",
+        "type": "local-userpass",
+        "config": {
+            "confirmEmailSubject": "Email address confirmation",
+            "emailConfirmationUrl": "https://barter-better-basic.netlify.app/confirmation.html",
+            "resetPasswordSubject": "Reset you BarterBetter password",
+            "resetPasswordUrl": "https://barter-better-basic.netlify.app/reset.html"
+        },
+        "disabled": false
     }
 }
