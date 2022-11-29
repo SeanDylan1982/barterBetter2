@@ -1,4 +1,4 @@
-import { mongodb } from mongodb;
+import mongodb from mongodb;
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://mongo:LL0921jj@cluster0.n9baelp.mongodb.net/?retryWrites=true&w=majority";
