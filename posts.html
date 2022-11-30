@@ -15,7 +15,7 @@
   <div class="app-container">
     <header id="header">
       <button type="submit" value="submit" class="btn btn-regular" id="login"></button>
-      <div class="login-container" id="login">
+      <div class="settings" id="settings">
         <i class="fa fa-bell"></i>
         <i class="fa fa-cog"></i>
         <img src="./img/profile-1.png" alt="user">
@@ -36,6 +36,55 @@
     </header>
     <main>
       
+      <div class="container-fluid">
+        <div class="app" id="app-container">
+          <div class="post" id="post-entry">
+            <div class="title" id="post-title">
+              <h1>Shoes to swap for pants</h1>
+              <h6>Enter a subtitle here</h6>
+            </div>
+            <div class="images" id="images">
+              <div class="img-container" id="img-main">
+                <img src="./img/shoes1.png" alt="">
+              </div>
+              <div class="thumbnails" id="thumbnail-images">
+                <img src="./img/shoes2.png" alt="">
+                <img src="./img/shoes3.png" alt="">
+                <img src="./img/shoes4.png" alt="">
+                <img src="./img/shoes5.png" alt="">
+              </div>
+            </div>
+            <div class="post-body" id="post-body">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo repellat dolore eaque culpa hic perferendis numquam unde? Facere, iste autem. Atque error aut itaque quis, placeat assumenda voluptate recusandae. Labore, sunt magni? Reprehenderit minima aperiam itaque dolor esse dolore magni.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo repellat dolore eaque culpa hic perferendis numquam unde? Facere, iste autem. Atque error aut itaque quis, placeat assumenda voluptate recusandae. Labore, sunt magni? Reprehenderit minima aperiam itaque dolor esse dolore magni. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum enim nemo adipisci culpa, laborum animi ipsa autem veniam quam. Vero, autem. Temporibus cumque officia hic ab quod minima rem fuga.
+              </p>
+            </div>
+          </div>
+          <div class="poster" id="poster-details">
+            <img src="./img/profile-1.png" alt="">
+            <div class="details" id="user-details">
+              <ul>
+                <li>Name</li>
+                <li>Region</li>
+                <li>Contact</li>
+              </ul>
+              <div class="form-control" id="form-control">
+                <form action="./message.html" method="post" class="form" id="message-form">
+                  <input class="form-group" type="text" name="name" id="name" placeholder="Your name">
+                  <input class="form-group" type="email" name="email" id="email" placeholder="Your email address">
+                  <textarea name="message" id="message" cols="25" rows="5" placeholder="Your message..."></textarea>
+                  <input class="form-group" type="tel" name="tel" id="tel" placeholder="Phone no. (Optional)">
+                  <button class="form-group" value="Send" name="submit" id="submit">Send message <i class="fa fa-paper-plane"></i> </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
     <footer>
       <a href="#"> <button type="submit" value"submit" class="btn btn-regular" id="back-to-top"> <i class="fa fa-chevron-up"></i> </button> </a>

@@ -76,7 +76,7 @@ header #sidebar-hamburger {
 #sidebar {
   position: absolute;
   top: 0;
-  width: 312px;
+  width: 320px;
   height: 100vh;
   border: 0 solid #d8db1c;
   background-color:  #6245e5aa;
@@ -286,7 +286,7 @@ footer button:hover {
 #login img {
   position: relative;
   top: -23px;
-  left: 1470px;
+  left: 1460px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -294,13 +294,38 @@ footer button:hover {
   background-color: #f1f1f166;
 }
 
+#settings img {
+  position: relative;
+  top: -23px;
+  left: 1445px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #f1f1f1;
+  background-color: #f1f1f166;
+}
+
+#settings i {
+  position: relative;
+  top: -18px;
+  left: 1455px;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  margin: 0 -5px;
+}
+
+
 #login i {
   position: relative;
   font-size: 1.5rem;
-  top: -18px;
-  left: 1460px;
+  top: 0;
+  /* left: 1460px; */
   padding: 0 5px;
 }
+
+
 
 #form-container {
   position: relative;
@@ -397,7 +422,7 @@ footer button:hover {
   font-size: .9rem;
   position: relative;
   top: -5px;
-  left: -435px;
+  left: -120px;
 }
 
 #filters-container #category-filter label,
@@ -408,7 +433,7 @@ footer button:hover {
   font-size: .9rem;
   position: relative;
   top: -30px;
-  left: -870px;
+  left: -238px;
 }
 
 #filters-container #region-section input {
@@ -417,7 +442,7 @@ footer button:hover {
   font-size: .5rem;
   position: relative;
   top: 0;
-  left: -420px;
+  left: -110px;
 }
 
 #filters-container #category-section input {
@@ -426,7 +451,7 @@ footer button:hover {
   font-size: .5rem;
   position: relative;
   top: -20px;
-  left: -420px;
+  left: -110px;
 }
 
 #category-section legend {
@@ -455,3 +480,4 @@ footer button:hover {
   top: 30px;
   left: 50px;
 }
+
