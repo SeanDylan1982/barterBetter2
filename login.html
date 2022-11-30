@@ -34,7 +34,7 @@
     </header>
     <main id="loginMain">
       <div class="form-control" id="form-container">
-        <form action="./form-data.js" method="POST" class="form-control" name="login">
+        <form action="./form-data.js" method="POST" class="form-control" name="login" id="register-form">
           <div class="form-group">
             <label for="first-name">First Name</label>
             <input type="text" class="form-control" id="firstName" name="name" placeholder="Your first name..." autofocus/>
@@ -66,7 +66,7 @@
           <br>
           <input type="hidden" name="form_submitted" value="1" />
           <div class="form-group">
-            <button type="submit" class="btn btn-success" value="Register"/><i class="fa fa-paper-plane"></i> Register</button>
+            <button type="submit" class="btn btn-success" value="Register" id="register-btn"/><i class="fa fa-paper-plane"></i> Register</button>
           </div>
         </form>
       </div>

@@ -2,7 +2,7 @@ const dataEntriesDb = [
   {
     id: "1",
     title: "Shoes to swap for pants",
-    image: "./img/shoes1.png",
+    image: "./img/mens_footwear_8168725_heromob.jpg",
     body: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam inventore nisi minima nam eligendi! Suscipit, perspiciatis fugit? Nulla iusto, reiciendis, consectetur quam id temporibus voluptatum, voluptas laboriosam inventore neque quidem. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam inventore nisi minima nam eligendi! Suscipit.",
     category: "Clothes",
     region: "Gauteng",

@@ -21,7 +21,7 @@ header #login a {
   right: 5px;
   margin: 0;
   font-size: 1.5rem;
-  width: 120px;
+  width: 140px;
   height: 40px;
   text-decoration: none;
   background-color:  #6245e5;
@@ -481,3 +481,104 @@ footer button:hover {
   left: 50px;
 }
 
+#post-entry {
+  position: relative;
+  width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 100px 300px;
+}
+
+#sub-title {
+  position: relative;
+  margin: 20px 0;
+}
+
+#share-icons {
+  position: relative;
+  top: -40px;
+  right: -360px;
+  font-size: 1.5rem;
+}
+
+#share-icons i {
+  margin-left: 15px;
+  scale: 1;
+  transition: all .5 ease-in-out;
+}
+
+#share-icons i:hover {
+  scale: 1.4;
+  transition: all .5 ease-in-out;
+}
+
+#img-main img {
+  position: relative;
+  width: 600px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+#thumbnail-images img:hover {
+  scale: 1.1;
+  transition: all .5 ease-in-out;
+}
+
+#thumbnail-images img {
+  position: relative;
+  display: inline;
+  width: 134px;
+  height: 134px;
+  border-radius: 10px;
+  margin: 20px 6px;
+  scale: 1;
+  transition: all .5 ease-in-out;
+}
+
+#post-body {
+  position: relative;
+  border-bottom: 1px solid #777777;
+}
+
+#poster-details {
+  position: relative;
+  width: 250px;
+  height: 600px;
+  top: -1180px;
+  left: 950px;
+  list-style: none;
+  text-decoration: none;
+}
+
+#poster-details img {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  top: 20px;
+  left: 19%;
+}
+
+#poster-details ul {
+  position: relative;
+  margin-top: 40px;
+  list-style: none;
+  left: -15px;
+}
+
+#poster-details li {
+  position: relative;
+  margin: 10px 0;
+}
+#values li {
+  position: relative;
+  top: -132px;
+  left: 80px;
+  font-weight: bolder;
+}
+
+#form-control {
+  position: relative;
+  top: -120px;
+}

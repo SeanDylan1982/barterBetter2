@@ -1,7 +1,7 @@
 const formData = new FormData(form);
 
-const btn = document.querySelector('#submit');
-const form = document.querySelector('#subscription');
+const btn = document.querySelector('#register-btn');
+const form = document.querySelector('#register-form');
 
 
 btn.addEventListener('click', (e) => {
@@ -14,8 +14,6 @@ btn.addEventListener('click', (e) => {
     console.log(values);
 });
 
-const btn = document.querySelector('#submit');
-const form = document.querySelector('#subscription');
 const messageEl = document.querySelector('#message');
 
 btn.addEventListener('click', (e) => {
@@ -25,7 +23,7 @@ btn.addEventListener('click', (e) => {
 
 const subscribe = async () => {
     try {
-        let response = await fetch('subscribe.php', {
+        let response = await fetch('./connect.js', {
         method: 'POST',
         body: new FormData(form),
         });
@@ -37,7 +35,7 @@ const subscribe = async () => {
     }
 };
 
-const showMessage = (message, type = 'success') => {
+const showSuccessMessage = (message, type = 'success') => {
     messageEl.innerHTML = `
         <div class="alert alert-${type}">
         ${message}
@@ -45,18 +43,18 @@ const showMessage = (message, type = 'success') => {
     `;
 };
 
-let response = await fetch('subscribe.php', {
-  method: 'POST',
-  body: new FormData(form),
+let response = await fetch('./connect.js', {
+    method: 'POST',
+    body: new FormData(form),
 });
 
 const result = await response.json();
 showMessage(result.message, response.status == 200 ? 'success' : 'error');
 
 const showMessage = (message, type = 'success') => {
-  messageEl.innerHTML = `
-      <div class="alert alert-${type}">
-      ${message}
-      </div>
-  `;
+    messageEl.innerHTML = `
+        <div class="alert alert-${type}">
+        ${message}
+        </div>
+    `;
 };
