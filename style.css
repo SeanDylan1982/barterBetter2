@@ -37,9 +37,9 @@ header #login a:hover {
 header input {
   position: fixed;
   top: 7px;
-  left: 20%;
+  left: 70%;
   margin: 0;
-  width: 60%;
+  width: 20%;
   height: 36px;
   background-color: #f1f1f1;
   border-radius: 10px;
@@ -48,7 +48,7 @@ header input {
 header #magnifying-glass {
   position: absolute;
   top: 9px;
-  left: 76%;
+  left: 87%;
   width: 25px;
   height: 25px;
   background-color: #f1f1f1;
@@ -281,6 +281,25 @@ footer button:hover {
 #login span:hover {
   background-color: #f1f1f1;
   color: #1a1a1a;
+}
+
+#login img {
+  position: relative;
+  top: -23px;
+  left: 1470px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #f1f1f1;
+  background-color: #f1f1f166;
+}
+
+#login i {
+  position: relative;
+  font-size: 1.5rem;
+  top: -18px;
+  left: 1460px;
+  padding: 0 5px;
 }
 
 #form-container {
