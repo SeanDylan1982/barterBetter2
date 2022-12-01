@@ -18,7 +18,7 @@
       <div class="settings" id="settings">
         <i class="fa fa-bell"></i>
         <i class="fa fa-cog"></i>
-        <img src="./img/profile-1.png" alt="user">
+        <a href="./profile.html"><img src="./img/profile-1.png" alt="user"></a>
       </div>
       <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
       <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
@@ -35,22 +35,26 @@
         </div>
         <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
       </div>
+      <div class="create-new-post" id="create-new-post">
+        <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
+      </div>
     </header>
     <main>
       <div class="container-fluid">
         <div class="form-control" id="create-entry">
+          <h1 id="create-post-heading">Create a new post</h1>
           <form action="" method="get">
-            <label for="title">Title</label>
+            <label for="title"> Title</label>
             <input type="text" name="title" placeholder="Title" autofucus>
-            <label for="subtitle">Sub-title</label>
+            <label for="subtitle"> Sub-title</label>
             <input type="text" name="subtitle" placeholder="Sub-title">
-            <label for="category">Category</label>
+            <label for="category"> Category </label>
             <select name="category" id="category-select" title="category">
               <option value="select" checked>Please Select</option>
               <option value="clothing">Clothing</option>
             </select>
             
-            <label for="region">Region</label>
+            <label for="region"> Region</label>
             <select name="region" id="region-select" title="region">
               <option value="select" selected>Please Select</option>
               <option value="eastern-cape">Eastern Cape</option>
@@ -64,7 +68,7 @@
               <option value="western-cape">Western Cape</option>
             </select>
             
-            <label for="body">Details</label>
+            <label for="body"> Body</label>
             <textarea type="text" name="body" placeholder="Body" cols="60" rows="10"></textarea>
             <label for="images">Upload Images</label>
             <input type="file" name="images" id="post-images" placeholder="images" >

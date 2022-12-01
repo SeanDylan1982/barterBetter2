@@ -18,7 +18,7 @@
       <div class="settings" id="settings">
         <i class="fa fa-bell"></i>
         <i class="fa fa-cog"></i>
-        <img src="./img/profile-1.png" alt="user">
+        <a href="./profile.html"><img src="./img/profile-1.png" alt="user"></a>
       </div>
       <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
       <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
@@ -37,7 +37,70 @@
       </div>
     </header>
     <main>
-      
+      <div class="container-fluid" id="container-fluid">
+        <div class="poster" id="user-profile-details">
+          <img src="./img/profile-1.png" alt="">
+          <div class="details" id="create-user-details">
+            <ul id="user-profile-keys">
+              <li>Name</li>
+              <li>Region</li>
+              <li>Contact</li>
+            </ul>
+            <ul id="user-profile-values">
+              <li>Sean Patterson</li>
+              <li>Gauteng</li>
+              <li>+2779 415 7439</li>
+            </ul>
+          </div>
+        </div>
+        <div class="create-new-post" id="create-new-post">
+          <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
+        </div>
+        <div class="my-posts" id="profile-my-posts">
+          <h3 id="profile-my-posts-title"> <i class="fa fa-pen"></i> My posts</h3>
+          <ul id="profile-my-posts-list">
+            <li>
+              <div class="ad-entry" id="adentry">
+                <a href="./posts.html" target="_blank">
+                <img src="./img/mens_footwear_8168725_heromob.jpg" alt="">
+                <h2 id="adtitle">Shoes to swap for pants</h2>
+                <span id="category">Clothing</span>
+                <p id="adbody">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam accusamus aperiam ipsum. Iste officiis culpa ut ea soluta tempore corrupti fuga vitae. Ut culpa deleniti dolore quos ducimus mollitia provident?
+                </p>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="notifications" id="profile-notifications">
+          <h3 id="profile-notifications-title"> <i class="fa fa-bell"></i> Notifications</h3>
+          <ul id="profile-notifications-list">
+            <li></li>
+          </ul>
+        </div>
+        <div class="favourites" id="profile-favourites">
+          <h3 id="profile-favourites-title"> <i class="fa fa-heart"></i> Favourites</h3>
+          <ul id="profile-favourites-list">
+            <li>
+              <div class="ad-entry" id="adentry">
+                <a href="./posts.html" target="_blank">
+                <img src="./img/shoes4.png" alt="">
+                <h2 id="adtitle">Shoes to swap for pants</h2>
+                <span id="category">Clothing</span>
+                <p id="adbody">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam accusamus aperiam ipsum. Iste officiis culpa ut ea soluta tempore corrupti fuga vitae. Ut culpa deleniti dolore quos ducimus mollitia provident?
+                </p>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="settings" id="profile-settings">
+          <h3 id="profile-settings-title"> <i class="fa fa-cog"></i> Settings</h3>
+          <ul id="profile-settings-list">
+            <li></li>
+          </ul>
+        </div>
+      </div>
     </main>
     <footer>
       <a href="#"> <button type="submit" value"submit" class="btn btn-regular" id="back-to-top"> <i class="fa fa-chevron-up"></i> </button> </a>
