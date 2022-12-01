@@ -9,7 +9,8 @@ header {
   margin: 0;
   width: 100vw;
   height: 50px;
-  background-color:  #6245e5;
+  /* background-color:  #6c56d1; */
+  background: linear-gradient(80deg, #5841c2 0%, #6252a7 53%, #5841c2 100%);
   color: #f1f1f1;
   text-decoration: none;
   z-index: 2;
@@ -67,7 +68,18 @@ header #sidebar-hamburger {
 #logo h2 {
   position: absolute;
   top: 2px;
-  left: 80px;
+  left: 65px;
+  color: #d8db1c;
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+#logo img {
+  position: absolute;
+  top: 2px;
+  left: 270px;
+  width: 45px;
+  height: 45px;
   color: #d8db1c;
   font-size: 2rem;
   font-weight: 900;
@@ -79,7 +91,7 @@ header #sidebar-hamburger {
   width: 320px;
   height: 100vh;
   border: 0 solid #d8db1c;
-  background-color:  #6245e5aa;
+  background: linear-gradient(80deg, #5841c2aa 0%, #6252a7aa 53%, #5841c2aa 100%);
   color: #d8db1c;
   visibility: hidden;
   z-index: 2;
@@ -87,8 +99,8 @@ header #sidebar-hamburger {
 
 #sidebar #logo h2 {
   position: absolute;
-  top: 1px;
-  left: 79px;
+  top: 2px;
+  left: 65px;
   color: #d8db1c;
   font-size: 2rem;
   font-weight: 900;
@@ -184,7 +196,7 @@ footer {
   width: 100vw;
   height: 50px;
   z-index: 2;
-  background-color:  #6245e5;
+  background: linear-gradient(80deg, #5841c2 0%, #6252a7 53%, #5841c2 100%);
   color: #f1f1f1;
 }
 
@@ -487,7 +499,7 @@ footer button:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
-  margin: 100px 300px;
+  margin: 100px 310px;
 }
 
 #sub-title {
@@ -581,4 +593,49 @@ footer button:hover {
 #form-control {
   position: relative;
   top: -120px;
+}
+
+#create-entry {
+  position: relative;
+  width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 100px 310px;
+}
+
+#create-poster-details {
+  position: relative;
+  width: 250px;
+  height: 600px;
+  top: -470px;
+  left: 950px;
+  list-style: none;
+  text-decoration: none;
+}
+#create-poster-details img {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  top: 20px;
+  left: 19%;
+}
+
+#create-poster-details ul {
+  position: relative;
+  margin-top: 40px;
+  list-style: none;
+  left: -15px;
+}
+
+#create-poster-details li {
+  position: relative;
+  margin: 10px 0;
+}
+#create-poster-values li {
+  position: relative;
+  top: -132px;
+  left: 80px;
+  font-weight: bolder;
 }
