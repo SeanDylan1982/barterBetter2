@@ -1,3 +1,8 @@
+body {
+  background: linear-gradient(55deg, #e0dbf5 20%, #bbb8c9 53%, #c0badf 100%);
+
+}
+
 html a {
   text-decoration: none;
 }
@@ -91,7 +96,7 @@ header #sidebar-hamburger {
   width: 320px;
   height: 100vh;
   border: 0 solid #d8db1c;
-  background: linear-gradient(80deg, #5841c2aa 0%, #6252a7aa 53%, #5841c2aa 100%);
+  background: linear-gradient(55deg, #5841c2 0%, #5848a1 53%, #5841c2 100%);
   color: #d8db1c;
   visibility: hidden;
   z-index: 2;
@@ -798,4 +803,9 @@ footer button:hover {
 
 #profile-settings ul {
   list-style: none;
+}
+
+#form-group-region {
+  position: relative;
+  
 }
