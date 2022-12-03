@@ -6,6 +6,7 @@
   <title>Barter Better</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
@@ -28,10 +29,97 @@
       </a>
         <div class="sidebar" id="sidebar">
         <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="">
           <h2>Barter|Better</h2>
         </div>
         <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
+        <div class="filters-container" id="filters-container">
+          <div class="clear" id="clear-filter">
+            <label for="clear"></label>
+            <br>
+            <button type="submit" value="submit" name="clear" id="clear-filters" class="btn btn-warning">Clear filters</button>
+          </div>
+          <div class="apply" id="apply-filter">
+            <label for="apply"></label>
+            <br>
+            <button type="submit" value="submit" name="apply" id="apply-filters" class="btn btn-success">Apply filters</button>
+          </div>
+          <div class="category" id="category-filter">
+            <label for="category"></label>
+            <fieldset id="category-section">
+              <legend>Category</legend>
+              <div>
+                <input type="checkbox" id="collections" name="interest" value="collections" checked/>
+                <label for="collections">Collections</label>
+              </div>
+              <div>
+                <input type="checkbox" id="clothing" name="interest" value="clothing"/>
+                <label for="clothing">Clothing</label>
+              </div>
+              <div>
+                <input type="checkbox" id="tools" name="interest" value="tools" />
+                <label for="tools">Tools</label>
+              </div>
+              <div>
+                <input type="checkbox" id="fresh-produce" name="interest" value="fresh-produce" />
+                <label for="fresh-produce">Fresh Produce</label>
+              </div>
+              <div>
+                <input type="checkbox" id="electronics" name="interest" value="electronics" />
+                <label for="electronics">Electronics</label>
+              </div>
+              <div>
+                <input type="checkbox" id="services" name="interest" value="services" />
+                <label for="services">Services</label>
+              </div>
+              <div>
+                <input type="checkbox" id="misc" name="interest" value="misc" />
+                <label for="misc">Miscellaneous</label>
+              </div>
+            </fieldset>
+            
+          </div>
+          <div class="region" id="region-filter">
+            <fieldset id="region-section">
+              <legend>Region</legend>
+              <div>
+                <input type="checkbox" id="ec" name="ec" checked>
+                <label for="ec"><p> Eastern Cape</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="fs" name="fs">
+                <label for="fs"><p> Free State</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="gp" name="gp">
+                <label for="gp"><p> Gauteng</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="kzn" name="kzn">
+                <label for="kzn"><p> Kwa-Zulu Natal</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="lp" name="lp">
+                <label for="lp"><p> Limpopo</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="mp" name="mp">
+                <label for="mp"><p> Mpumalanga</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="nc" name="nc">
+                <label for="nc"><p> Northern Cape</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="nw" name="nw">
+                <label for="nw"><p> North West</p></label>
+              </div>
+              <div>
+                <input type="checkbox" id="wc" name="wc">
+                <label for="wc"><p> Western Cape</p></label>
+              </div>
+          </fieldset>
+          </div>
+        </div>
       </div>
       <!-- <div class="filters-container" id="filters-container">
         <div class="clear" id="clear-filter">

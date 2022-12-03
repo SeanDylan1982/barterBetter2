@@ -1,6 +1,11 @@
-body {
-  background: linear-gradient(55deg, #e0dbf5 20%, #bbb8c9 53%, #c0badf 100%);
-
+*,
+header,
+html, 
+body,
+footer {
+  /* background: linear-gradient(55deg, #e0dbf5 20%, #bbb8c9 53%, #c0badf 100%); */
+  font-family: 'Asap', 'Poppins', 'Source Sans Pro', sans-serif;
+  scroll-behavior: smooth;
 }
 
 html a {
@@ -82,7 +87,7 @@ header #sidebar-hamburger {
 #logo img {
   position: absolute;
   top: 2px;
-  left: 520px;
+  left: 550px;
   width: 45px;
   height: 45px;
   color: #d8db1c;
@@ -429,74 +434,85 @@ footer button:hover {
   font-weight: bolder;
   position: relative;
   top: 40px;
-  left: 110px;
+  left: 0;
 }
 
 #filters-container #region-filter label,
 #filters-container #region-filter p {
-  font: 1rem 'Fira Sans', sans-serif;
+  font: 1rem 'Asap', 'Poppins', sans-serif;
   margin: .1rem;
-  color: #1a1a1a;
+  color: #f1f1f1;
   font-size: .9rem;
   position: relative;
-  top: -5px;
-  left: -120px;
+  top: -35px;
+  left: 25px;
 }
 
 #filters-container #category-filter label,
 #filters-container #category-filter p {
-  font: 1rem 'Fira Sans', sans-serif;
+  font: 1rem 'Asap', 'Poppins', sans-serif;
   margin: .1rem;
-  color: #1a1a1a;
+  color: #f1f1f1;
   font-size: .9rem;
   position: relative;
-  top: -30px;
-  left: -238px;
+  top: -70px;
+  left: 50px;
 }
 
 #filters-container #region-section input {
   margin: .1rem;
   color: #1a1a1a;
-  font-size: .5rem;
+  font-size: .1rem;
   position: relative;
-  top: 0;
-  left: -110px;
+  top: -65px;
+  left: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 #filters-container #category-section input {
   margin: .1rem;
   color: #1a1a1a;
-  font-size: .5rem;
+  font-size: .1rem;
   position: relative;
-  top: -20px;
-  left: -110px;
+  top: -65px;
+  left: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 #category-section legend {
   position: relative;
-  color: #1a1a1a;
-  top: -15px;
+  color: #f1f1f1;
+  top: -40px;
   left: 10px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 10px 0;
-  margin: 10px 0;
+  margin: 0px 0px 20px 0px;
 }
 
 #region-section legend {
   position: relative;
-  color: #1a1a1a;
-  top: 0;
+  color: #f1f1f1;
+  top: -40px;
   left: 10px;
-  font-weight: bold;
-  padding: 10px 0;
-  margin: 10px 0;
+  font-weight: 500;
+  margin-top: -20px;
+  margin-bottom: 30px;
 }
 
 #clear-filter button {
   position: relative;
-  font-size: 1.8rem;
-  top: 30px;
-  left: 50px;
+  font-size: 1rem;
+  top: 50px;
+  left: 25px;
+}
+
+#apply-filter button {
+  position: relative;
+  font-size: 1rem;
+  top: -12px;
+  left: 175px;
 }
 
 #post-entry {
@@ -808,4 +824,14 @@ footer button:hover {
 #form-group-region {
   position: relative;
   
+}
+
+#app-container #paginated-list li {
+  /* scale: 1.0; */
+  transition: all .2s ease-in-out;
+}
+
+#app-container #paginated-list li:hover {
+  /* scale: 1.1; */
+  transition: all .2s ease-in-out;
 }
