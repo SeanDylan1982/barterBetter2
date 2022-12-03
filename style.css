@@ -77,11 +77,11 @@ header #sidebar-hamburger {
 
 #logo h2 {
   position: absolute;
-  top: 2px;
-  left: 320px;
+  top: 5px;
+  left: 330px;
   color: #d8db1c;
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 600;
 }
 
 #logo img {
@@ -92,7 +92,7 @@ header #sidebar-hamburger {
   height: 45px;
   color: #d8db1c;
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 #sidebar {
@@ -113,7 +113,7 @@ header #sidebar-hamburger {
   left: 65px;
   color: #d8db1c;
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 700;
   visibility: hidden;
 }
 
@@ -609,7 +609,7 @@ footer button:hover {
   position: relative;
   top: -132px;
   left: 80px;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 #form-control {
@@ -619,7 +619,7 @@ footer button:hover {
 
 #create-entry {
   position: relative;
-  width: 600px;
+  width: 650px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -660,7 +660,7 @@ footer button:hover {
   position: relative;
   top: -180px;
   left: 80px;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 #create-entry form {
@@ -691,7 +691,7 @@ footer button:hover {
 #create-entry form label {
   position: relative;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 #create-post-heading {
@@ -741,7 +741,7 @@ footer button:hover {
   top: -48%;
   left: 82%;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 500;
   list-style: none;
 }
 
