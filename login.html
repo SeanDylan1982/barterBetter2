@@ -39,13 +39,7 @@
     </header>
     <main id="loginMain">
       <div class="form-control" id="form-container">
-        <form action="./registerdata.php" method="POST" class="form-control" name="register" id="register-form">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Your username..."/>
-          </div>
-          <br>
-          <br>
+        <form action="./logincheck.php" method="POST" class="form-control" name="register" id="register-form">
           <div class="form-group">
             <label for="email">eMail Address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Your email address..."/>
@@ -57,15 +51,10 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter a password..."/>
           </div>
           <br>
-          <div class="form-group">
-            <label for="confirm">Confirm password</label>
-            <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Please confirm your password..."/>
-          </div>
-          <br>
           <br>
           <input type="hidden" name="form_submitted" value="1" />
           <div class="form-group">
-            <button type="submit" class="btn btn-success" value="Register" id="register-btn"/><i class="fa fa-paper-plane"></i> Register</button>
+            <button type="submit" class="btn btn-success" value="Register" id="register-btn"/><i class="fa fa-user"></i> Login</button>
           </div>
         </form>
       </div>

@@ -835,3 +835,10 @@ footer button:hover {
   /* scale: 1.1; */
   transition: all .2s ease-in-out;
 }
+
+#header-profile {
+  position: relative;
+  font-size: 2rem;
+  top: 3px;
+  right: 50px;
+}
