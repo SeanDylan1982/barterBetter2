@@ -189,12 +189,13 @@ header #sidebar-hamburger {
 #adentry #adbody {
   position: relative;
   color: #1a1a1a !important;
-  top: -110px;
+  top: -120px;
   left: 200px;
-  height: 110px;
+  height: 70px;
   width: 78%;
   margin: 1px;
   font-size: .9rem;
+  overflow: hidden;
 }
 
 #paginated-list {
@@ -841,4 +842,80 @@ footer button:hover {
   font-size: 2rem;
   top: 3px;
   right: 50px;
+}
+
+#controls {
+  position: relative;
+  display: inline-block;
+  flex-direction: column;
+  width: 750px;
+  height: 40px;
+  top: -115px;
+  left: 190px;
+}
+
+#comment {
+  position: relative;
+  display: flex;
+  height: 36px;
+  width: 300px;
+  top: -38px;
+  left: 52px;
+  border: none;
+}
+
+#likes i {
+  position: relative;
+  font-size: 1.7rem;
+  margin: 5px 12px;
+  top: 2px;
+  background-color: #5841c2;
+  color: #f1f1f1;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 1px;
+}
+
+#share i {
+  position: relative;
+  display: flex;
+  left: 345px;
+  font-size: 1.7rem;
+  margin: 5px 12px;
+  top: -74px;
+  background-color: #5841c2;
+  color: #f1f1f1;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 2px;
+}
+
+#add {
+  position: relative;
+  top: -108px;
+  left: 400px;
+  width: 190px;
+  height: 30px;
+  background-color: #5841c2;
+  color: #f1f1f1;
+  padding: 1px 5px;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+#contact {
+  position: relative;
+  top: -138px;
+  left: 580px;
+  width: 150px;
+  height: 30px;
+  background-color: #5841c2;
+  color: #f1f1f1;
+  padding: 1px 10px;
+  font-size: 1.1rem;
+  margin: 0;
 }

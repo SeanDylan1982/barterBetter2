@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-  <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
 </head>
 <body>
   <div class="app-container">
@@ -22,16 +21,13 @@
       </div>
       <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
       <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
-      <a href="#">
+      <a href="./index.html">
         <div class="logo" id="logo">
           <img src="./img/logo2.png" alt="">
           <h2>Barter|Better</h2>
         </div>
       </a>
         <div class="sidebar" id="sidebar">
-        <div class="logo" id="logo">
-          <h2>Barter|Better</h2>
-        </div>
         <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
         <div class="filters-container" id="filters-container">
           <div class="clear" id="clear-filter">
@@ -77,7 +73,6 @@
                 <label for="misc">Miscellaneous</label>
               </div>
             </fieldset>
-            
           </div>
           <div class="region" id="region-filter">
             <fieldset id="region-section">
@@ -122,94 +117,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="filters-container" id="filters-container">
-        <div class="clear" id="clear-filter">
-          <label for="clear"></label>
-          <button type="submit" value="submit" name="clear" id="clear-filters" class="btn btn-regular">Clear all filters</button>
-          <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-          </div>
-        </div>
-        <div class="category" id="category-filter">
-          <label for="category"></label>
-          <fieldset id="category-section">
-            <legend>Category</legend>
-            <div>
-              <input type="checkbox" id="collections" name="interest" value="collections" />
-              <label for="collections">Collections</label>
-            </div>
-            <div>
-              <input type="checkbox" id="clothing" name="interest" value="clothing" checked/>
-              <label for="clothing">Clothing</label>
-            </div>
-            <div>
-              <input type="checkbox" id="tools" name="interest" value="tools" />
-              <label for="tools">Tools</label>
-            </div>
-            <div>
-              <input type="checkbox" id="fresh-produce" name="interest" value="fresh-produce" />
-              <label for="fresh-produce">Fresh Produce</label>
-            </div>
-            <div>
-              <input type="checkbox" id="electronics" name="interest" value="electronics" />
-              <label for="electronics">Electronics</label>
-            </div>
-            <div>
-              <input type="checkbox" id="services" name="interest" value="services" />
-              <label for="services">Services</label>
-            </div>
-            <div>
-              <input type="checkbox" id="misc" name="interest" value="misc" />
-              <label for="misc">Miscellaneous</label>
-            </div>
-          </fieldset>
-          
-          <div class="slidecontainer">
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-          </div>
-        </div>
-        <div class="region" id="region-filter">
-          <fieldset id="region-section">
-            <legend>Region</legend>
-            <div>
-              <input type="checkbox" id="ec" name="ec" checked>
-              <label for="ec"><p> Eastern Cape</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="fs" name="fs">
-              <label for="fs"><p> Free State</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="gp" name="gp">
-              <label for="gp"><p> Gauteng</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="kzn" name="kzn">
-              <label for="kzn"><p> Kwa-Zulu Natal</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="lp" name="lp">
-              <label for="lp"><p> Limpopo</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="mp" name="mp">
-              <label for="mp"><p> Mpumalanga</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="nc" name="nc">
-              <label for="nc"><p> Northern Cape</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="nw" name="nw">
-              <label for="nw"><p> North West</p></label>
-            </div>
-            <div>
-              <input type="checkbox" id="wc" name="wc">
-              <label for="wc"><p> Western Cape</p></label>
-            </div>
-        </fieldset>
-        </div>
-      </div> -->
       <div class="create-new-post" id="create-new-post">
         <a href="./createpost.html"> <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button></a>
       </div>
@@ -219,7 +126,6 @@
         <ul id="paginated-list" aria-live="polite">
           
         </ul>
-        
       </div>
     </main>
     <footer>

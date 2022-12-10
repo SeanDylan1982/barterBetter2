@@ -19,7 +19,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO `posts`(`id`, `title`, `subtitle`, `body`, `images`, `region`, `category`, `timestamp`) VALUES ('NULL','$title', '$subtitle', '$body', '$images', '$region', '$category', current_timestamp())";
+$sql = "INSERT INTO `posts`(`id`, `title`, `subtitle`, `body`, `images`, `region`, `category`, `timestamp`) VALUES ('NULL','$title','$subtitle','$body','$images','$region','$category',current_timestamp())";
 
 if ($conn->query($sql) === TRUE) {
   echo "Your post was successfully submitted!";
@@ -28,6 +28,6 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-header("Location: ./index.html");
+header("Location: ./timeline.html");
 exit();
 ?>
