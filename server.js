@@ -37,6 +37,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));  // Add this line for form data
 app.use(express.static('.'));
 
 let db;
@@ -134,40 +135,87 @@ app.post('/api/profile', async (req, res) => {
 // Create Post
 app.post('/api/posts', upload.array('images', 5), async (req, res) => {
   try {
-    const { userId, username, title, subtitle, category, description, region } = req.body;
+    console.log('Received post creation request:', req.body);  // Debug logging
+    const { userId, username, title, subtitle, category, description } = req.body;
+    
+    // Input validation with detailed error message
+    const missingFields = [];
+    if (!userId) missingFields.push('userId');
+    if (!username) missingFields.push('username');
+    if (!title) missingFields.push('title');
+    if (!category) missingFields.push('category');
+    if (!description) missingFields.push('description');
+    
+    if (missingFields.length > 0) {
+      console.log('Missing required fields:', missingFields);  // Debug logging
+      return res.status(400).json({ 
+        error: 'Missing required fields', 
+        missingFields 
+      });
+    }
+
     const imageUrls = [];
 
     // Upload images to Cloudinary if any
     if (req.files && req.files.length > 0) {
+      console.log(`Processing ${req.files.length} images`);  // Debug logging
       for (const file of req.files) {
-        const result = await cloudinary.uploader.upload(file.path);
-        imageUrls.push(result.secure_url);
-        // Clean up uploaded file
-        fs.unlinkSync(file.path);
+        try {
+          const result = await cloudinary.uploader.upload(file.path);
+          imageUrls.push(result.secure_url);
+          // Clean up uploaded file
+          fs.unlinkSync(file.path);
+        } catch (uploadError) {
+          console.error('Error uploading to Cloudinary:', uploadError);
+          // Continue with other images if one fails
+        }
       }
-    }    const post = {
+    }    // Create the post object with all required fields
+    const post = {
       userId: new ObjectId(userId),
       username,
       title,
-      subtitle,
+      subtitle: subtitle || '',
       category,
       description,
-      region,
       imageUrls,
       createdAt: new Date(),
       likes: [],
-      comments: []
+      comments: [],
+      // Add any additional fields that might be in the form
+      ...req.body
     };
+
+    console.log('Saving post to database:', post);  // Debug logging
+    
+    // Ensure we have a database connection
+    if (!db) {
+      throw new Error('Database connection not established');
+    }
     
     const result = await db.collection('posts').insertOne(post);
+    
+    // Verify the insert was successful
+    const savedPost = await db.collection('posts').findOne({ _id: result.insertedId });
+    
+    if (!savedPost) {
+      throw new Error('Post was not saved successfully');
+    }
+    
+    console.log('Post saved successfully:', savedPost);  // Debug logging
+    
     res.status(201).json({ 
       message: 'Post created successfully', 
-      postId: result.insertedId,
-      imageUrls
-    });
-  } catch (err) {
+      post: savedPost
+    });  } catch (err) {
     console.error('Error creating post:', err);
-    res.status(500).json({ error: 'Error creating post' });
+    // Send a more detailed error message
+    res.status(500).json({ 
+      error: 'Error creating post',
+      details: err.message,
+      // Don't expose stack trace in production
+      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+    });
   }
 });
 
