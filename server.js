@@ -136,7 +136,7 @@ app.post('/api/profile', async (req, res) => {
 app.post('/api/posts', upload.array('images', 5), async (req, res) => {
   try {
     console.log('Received post creation request:', req.body);  // Debug logging
-    const { userId, username, title, subtitle, category, description } = req.body;
+    const { userId, username, title, subtitle, category, region, description } = req.body;
     
     // Input validation with detailed error message
     const missingFields = [];
@@ -144,46 +144,45 @@ app.post('/api/posts', upload.array('images', 5), async (req, res) => {
     if (!username) missingFields.push('username');
     if (!title) missingFields.push('title');
     if (!category) missingFields.push('category');
+    if (!region) missingFields.push('region');
     if (!description) missingFields.push('description');
     
     if (missingFields.length > 0) {
       console.log('Missing required fields:', missingFields);  // Debug logging
-      return res.status(400).json({ 
-        error: 'Missing required fields', 
-        missingFields 
+      return res.status(400).json({
+        error: `Missing required fields: ${missingFields.join(', ')}`
       });
     }
 
+    // Process uploaded images
     const imageUrls = [];
-
-    // Upload images to Cloudinary if any
     if (req.files && req.files.length > 0) {
-      console.log(`Processing ${req.files.length} images`);  // Debug logging
       for (const file of req.files) {
         try {
           const result = await cloudinary.uploader.upload(file.path);
           imageUrls.push(result.secure_url);
-          // Clean up uploaded file
+          // Clean up the uploaded file
           fs.unlinkSync(file.path);
         } catch (uploadError) {
-          console.error('Error uploading to Cloudinary:', uploadError);
+          console.error('Error uploading image:', uploadError);
           // Continue with other images if one fails
         }
       }
-    }    // Create the post object with all required fields
+    }
+
+    // Create the post object with all required fields
     const post = {
       userId: new ObjectId(userId),
       username,
       title,
       subtitle: subtitle || '',
       category,
+      region,
       description,
       imageUrls,
       createdAt: new Date(),
       likes: [],
-      comments: [],
-      // Add any additional fields that might be in the form
-      ...req.body
+      comments: []
     };
 
     console.log('Saving post to database:', post);  // Debug logging
@@ -207,7 +206,8 @@ app.post('/api/posts', upload.array('images', 5), async (req, res) => {
     res.status(201).json({ 
       message: 'Post created successfully', 
       post: savedPost
-    });  } catch (err) {
+    });
+  } catch (err) {
     console.error('Error creating post:', err);
     // Send a more detailed error message
     res.status(500).json({ 

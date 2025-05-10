@@ -49,38 +49,110 @@
           </div>
         </div>
       </div>
-    </header>    <main class="py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <h4 class="mb-0">Featured Items</h4>
-              <a href="./createpost.html" class="btn btn-success">
-                <i class="fa fa-plus me-2"></i>Create a new post
-              </a>
+    </header>    <main>
+      <div class="timeline" id="timeline">
+        <div class="container">
+          <div class="row">
+            <!-- Categories Sidebar -->
+            <div class="col-md-3 categories-sidebar">
+              <div class="filter-controls">
+                <div class="view-toggle mb-3">
+                  <button class="btn btn-outline-primary active" data-view="grid">
+                    <i class="fa fa-th-large"></i> Grid
+                  </button>
+                  <button class="btn btn-outline-primary" data-view="list">
+                    <i class="fa fa-list"></i> List
+                  </button>
+                </div>
+
+                <div class="filter-section">
+                  <h4>Sort By</h4>
+                  <select class="form-select" id="sort-options">
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                  </select>
+                </div>
+
+                <div class="filter-section">
+                  <h4>Categories</h4>
+                  <div class="category-list">
+                    <button class="category-btn active" data-category="all">All Categories</button>
+                    <button class="category-btn" data-category="clothing">Clothing</button>
+                    <button class="category-btn" data-category="electronics">Electronics</button>
+                    <button class="category-btn" data-category="furniture">Furniture</button>
+                    <button class="category-btn" data-category="books">Books</button>
+                    <button class="category-btn" data-category="services">Services</button>
+                    <button class="category-btn" data-category="other">Other</button>
+                  </div>
+                </div>
+
+                <div class="filter-section">
+                  <h4>Location</h4>
+                  <select class="form-select" id="location-filter">
+                    <option value="all">All Locations</option>
+                    <option value="Eastern Cape">Eastern Cape</option>
+                    <option value="Free State">Free State</option>
+                    <option value="Gauteng">Gauteng</option>
+                    <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                    <option value="Limpopo">Limpopo</option>
+                    <option value="Mpumalanga">Mpumalanga</option>
+                    <option value="Northern Cape">Northern Cape</option>
+                    <option value="North West">North West</option>
+                    <option value="Western Cape">Western Cape</option>
+                  </select>
+                </div>
+
+                <div class="filter-section">
+                  <h4>Price Range</h4>
+                  <div class="price-range">
+                    <input type="number" class="form-control" id="min-price" placeholder="Min Price">
+                    <span>to</span>
+                    <input type="number" class="form-control" id="max-price" placeholder="Max Price">
+                  </div>
+                </div>
+
+                <div class="filter-section">
+                  <h4>Condition</h4>
+                  <select class="form-select" id="condition-filter">
+                    <option value="all">Any Condition</option>
+                    <option value="new">New</option>
+                    <option value="like-new">Like New</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                  </select>
+                </div>
+
+                <button class="btn btn-primary w-100 mt-3" id="apply-filters">
+                  Apply Filters
+                </button>
+                <button class="btn btn-outline-secondary w-100 mt-2" id="clear-filters">
+                  Clear All Filters
+                </button>
+              </div>
+            </div>
+
+            <!-- Posts Container -->
+            <div class="col-md-9">
+              <div class="posts-container">
+                <div id="map-container" class="mb-4" style="display: none;">
+                  <div id="map" style="height: 300px;"></div>
+                </div>
+                <div class="posts-header mb-3">
+                  <h4><span id="posts-count">0</span> Items Found</h4>
+                  <button class="btn btn-outline-primary" id="toggle-map">
+                    <i class="fa fa-map-marker"></i> Toggle Map View
+                  </button>
+                </div>
+                <div id="posts-container" class="posts-grid">
+                  <!-- Posts will be dynamically added here -->
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        
-        <div class="posts-grid" id="posts-container">
-          <!-- Posts will be dynamically added here -->
-        </div>
-
-        <nav class="mt-4" aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <button class="page-link" id="prev-button" aria-label="Previous">
-                <i class="fa fa-angle-left"></i>
-              </button>
-            </li>
-            <div id="pagination-numbers" class="d-flex"></div>
-            <li class="page-item">
-              <button class="page-link" id="next-button" aria-label="Next">
-                <i class="fa fa-angle-right"></i>
-              </button>
-            </li>
-          </ul>
-        </nav>
+      </div>
       </div>
     </main>    <footer class="footer mt-auto py-3 bg-primary text-white">
       <div class="container text-center">
@@ -111,7 +183,8 @@
   <!-- Scripts -->
   <script src="./data.js"></script>
   <script src="./timeline.js"></script>
-  <script src="./app.js"></script>
+  <script src="./app.js"></script>  <script src="./timeline.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
   <script>
     // Initialize with grid view for index page
     document.addEventListener('DOMContentLoaded', () => {
@@ -128,21 +201,8 @@
           const view = this.dataset.view;
           const container = document.getElementById('posts-container');
           container.className = `posts-${view}`;
+          state.view = view;
         });
-      });
-
-      // Back to top button
-      const backToTopButton = document.getElementById('back-to-top');
-      window.onscroll = function() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-          backToTopButton.style.display = 'block';
-        } else {
-          backToTopButton.style.display = 'none';
-        }
-      };
-      
-      backToTopButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
   </script>

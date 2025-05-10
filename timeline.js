@@ -97,22 +97,23 @@ function formatPostData(post) {
           <span class="badge bg-${getCategoryColor(safePost.category)}">${safePost.category}</span>
           ${safePost.condition ? `<span class="badge bg-secondary">${safePost.condition}</span>` : ''}
         </div>
-      </div>
-      <div class="post-footer">
-        <div class="post-info">
-          <small>Posted by ${safePost.username}</small>
-          <br>
-          <small>${formatDate(safePost.createdAt)}</small>
-        </div>
-        <div class="post-actions">
-          <button class="btn btn-sm like-btn" onclick="likePost('${safePost._id}')" title="Like">
-            <i class="fa fa-heart${safePost.likes.includes(userId) ? '' : '-o'}"></i>
-            <span>${safePost.likes.length}</span>
-          </button>
-          <button class="btn btn-sm" onclick="showComments('${safePost._id}')" title="Comments">
-            <i class="fa fa-comment-o"></i>
-            <span>${safePost.comments.length}</span>
-          </button>
+        <div class="post-footer">
+          <div class="post-info">
+            <small>Posted by ${safePost.username}</small>
+            <br>
+            <small>${formatDate(safePost.createdAt)}</small>
+          </div>
+          <div class="post-actions">
+            <button class="btn btn-sm like-btn ${safePost.likes.includes(userId) ? 'active' : ''}" 
+                    onclick="likePost('${safePost._id}')" title="Like">
+              <i class="fa fa-heart${safePost.likes.includes(userId) ? '' : '-o'}"></i>
+              <span>${safePost.likes.length}</span>
+            </button>
+            <button class="btn btn-sm" onclick="showComments('${safePost._id}')" title="Comments">
+              <i class="fa fa-comment-o"></i>
+              <span>${safePost.comments.length}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

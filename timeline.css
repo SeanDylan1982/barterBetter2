@@ -5,20 +5,7 @@
   padding: 40px 0;
 }
 
-/* Post Cards */
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  padding: 0 10px;
-}
-
-.posts-list .post-card {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  margin-bottom: 24px;
-}
-
+/* Post Cards - Shared Styles */
 .post-card {
   background: white;
   border-radius: 12px;
@@ -32,10 +19,27 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
+/* Grid View */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  padding: 0 10px;
+}
+
+/* List View */
+.posts-list .post-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  margin-bottom: 24px;
+}
+
+/* Post Images */
 .post-images {
   position: relative;
   aspect-ratio: 4/3;
   overflow: hidden;
+  background-color: #f8f9fa;
 }
 
 .post-image {
@@ -49,12 +53,28 @@
   transform: scale(1.05);
 }
 
+.image-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Post Content */
 .post-content {
-  padding: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .post-content h4 {
   font-size: 18px;
+  font-weight: 600;
   margin-bottom: 8px;
   color: #333;
   line-height: 1.4;
@@ -68,7 +88,7 @@
 }
 
 .location-tag {
-  font-size: 13px;
+  font-size: 14px;
   color: #6c757d;
   display: flex;
   align-items: center;
@@ -76,7 +96,11 @@
   margin-bottom: 12px;
 }
 
-.post-content p {
+.location-tag i {
+  color: #dc3545;
+}
+
+.post-description {
   font-size: 14px;
   color: #666;
   line-height: 1.6;
@@ -87,10 +111,12 @@
   overflow: hidden;
 }
 
+/* Post Meta */
 .post-meta {
   display: flex;
   gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .badge {
@@ -100,13 +126,15 @@
   border-radius: 20px;
 }
 
+/* Post Footer */
 .post-footer {
-  padding: 16px;
+  padding: 16px 20px;
   border-top: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #f8f9fa;
+  margin-top: auto;
 }
 
 .post-info {
@@ -122,15 +150,19 @@
 .post-actions .btn {
   padding: 6px 12px;
   color: #666;
-  transition: color 0.2s;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .post-actions .btn:hover {
   color: #333;
+  background-color: #e9ecef;
 }
 
-.post-actions .btn i {
-  margin-right: 4px;
+.post-actions .like-btn.active {
+  color: #dc3545;
 }
 
 /* Filters */
@@ -283,20 +315,20 @@
   }
 
   .post-content {
-    padding: 12px;
+    padding: 16px;
   }
 
   .post-footer {
-    padding: 12px;
+    padding: 12px 16px;
   }
 
-  .filter-section h4 {
-    font-size: 14px;
+  .price-tag {
+    font-size: 20px;
   }
+}
 
-  .toast {
-    left: 24px;
-    right: 24px;
-    text-align: center;
+@media (max-width: 576px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
   }
 }

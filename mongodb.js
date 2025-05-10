@@ -1,5 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://sean:hkCwdghjaJ7AzXxc@cluster0.xxi4s51.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb://localhost:27017/barterBetter";
 
 const client = new MongoClient(uri, {
   serverApi: {

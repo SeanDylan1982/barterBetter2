@@ -56,6 +56,19 @@
               <option value="books">Books</option>
               <option value="other">Other</option>
             </select>
+            <label for="region">Region</label>
+            <select name="region" id="region" required>
+              <option value="">Select your region</option>
+              <option value="gauteng">Gauteng</option>
+              <option value="western-cape">Western Cape</option>
+              <option value="eastern-cape">Eastern Cape</option>
+              <option value="kwazulu-natal">KwaZulu-Natal</option>
+              <option value="free-state">Free State</option>
+              <option value="mpumalanga">Mpumalanga</option>
+              <option value="limpopo">Limpopo</option>
+              <option value="north-west">North West</option>
+              <option value="northern-cape">Northern Cape</option>
+            </select>
             <label for="description">Description</label>
             <textarea name="description" id="description" rows="5" placeholder="Describe your item..." required></textarea>
             <label for="image">Images</label>
@@ -119,6 +132,7 @@
         formData.append('title', document.getElementById('title').value);
         formData.append('subtitle', document.getElementById('subtitle').value);
         formData.append('category', document.getElementById('category').value);
+        formData.append('region', document.getElementById('region').value);
         formData.append('description', document.getElementById('description').value);
 
         // Add images to FormData
