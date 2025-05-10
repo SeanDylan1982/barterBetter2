@@ -42,63 +42,171 @@
       <div class="container-fluid">
         <div class="form-control" id="create-entry">
           <h1 id="create-post-heading">Create a new post</h1>
-          <form action="./posts.php" method="post">
-            <label for="username"> Username</label>
-            <input type="text" name="username" placeholder="Username">
-            <label for="title"> Title</label>
-            <input type="text" name="title" placeholder="Title" autofucus>
-            <label for="subtitle"> Sub-title</label>
-            <input type="text" name="subtitle" placeholder="Sub-title">
-            <label for="category"> Category </label>
-            <select name="category" id="category-select" title="category">
-              <option value="select" checked>Please Select</option>
+          <form id="create-post-form">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" placeholder="Title" required>
+            <label for="subtitle">Sub-title</label>
+            <input type="text" name="subtitle" id="subtitle" placeholder="Sub-title">
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+              <option value="">Select a category</option>
               <option value="clothing">Clothing</option>
+              <option value="electronics">Electronics</option>
+              <option value="furniture">Furniture</option>
+              <option value="books">Books</option>
+              <option value="other">Other</option>
             </select>
-            
-            <label for="region"> Region</label>
-            <select name="region" id="region-select" title="region">
-              <option value="select" checked>Please Select</option>
-              <option value="eastern-cape">Eastern Cape</option>
-              <option value="free-state">Free State</option>
-              <option value="Gauteng">Gauteng</option>
-              <option value="Kwa-Zulu Natal">Kwa-Zulu Natal</option>
-              <option value="Limpopo">Limpopo</option>
-              <option value="Mpumalanga">Mpumalanga</option>
-              <option value="northern-cape">Northern Cape</option>
-              <option value="north-west">North West</option>
-              <option value="western-cape">Western Cape</option>
-            </select>
-            
-            <label for="body"> Body</label>
-            <textarea type="text" name="body" placeholder="Body" cols="60" rows="10"></textarea>
-            <label for="images">Upload Images</label>
-            <input type="file" name="images" id="post-images" placeholder="images" >
-            <button type="submit" name="submit" class="btn btn-success">Create a post... <i class="fa fa-pen"></i> </button>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5" placeholder="Describe your item..." required></textarea>
+            <label for="image">Images</label>
+            <input type="file" name="image" id="image" accept="image/*" multiple>
+            <div id="image-preview"></div>
+            <button type="submit" class="btn btn-success">Create Post <i class="fa fa-paper-plane"></i></button>
           </form>
-        </div>
-        <div class="poster" id="create-poster-details">
-          <img src="./img/profile-1.png" alt="">
-          <div class="details" id="create-user-details">
-            <ul>
-              <li>Name</li>
-              <li>Region</li>
-              <li>Contact</li>
-            </ul>
-            <ul id="create-poster-values">
-              <li>Sean Patterson</li>
-              <li>Gauteng</li>
-              <li>+2779 415 7439</li>
-            </ul>
-          </div>
+          <div id="message" class="alert" style="display: none;"></div>
         </div>
       </div>
     </main>
-    <footer>
-      <a href="#"> <button type="submit" value"submit" class="btn btn-regular" id="back-to-top"> <i class="fa fa-chevron-up"></i> </button> </a>
-    </footer>
-  </div>
+    <script>
+      // Check if user is logged in
+      const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
+      
+      if (!userId || !username) {
+        window.location.href = 'login.html';
+      }
 
-  <script defer src="./data.js"></script>
-  <script defer src="./app.js"></script>
+      // Add username to header
+      const settingsDiv = document.querySelector('.settings');
+      if (username && settingsDiv) {
+        const usernameSpan = document.createElement('span');
+        usernameSpan.className = 'username';
+        usernameSpan.textContent = username;
+        settingsDiv.insertBefore(usernameSpan, settingsDiv.firstChild);
+      }
+      
+      // Handle image preview
+      const imageInput = document.getElementById('image');
+      const imagePreview = document.getElementById('image-preview');
+      
+      imageInput.addEventListener('change', function(e) {
+        imagePreview.innerHTML = '';
+        const files = Array.from(e.target.files);
+        
+        files.forEach(file => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxHeight = '100px';
+            img.style.margin = '5px';
+            imagePreview.appendChild(img);
+          }
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Handle form submission
+      document.getElementById('create-post-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const messageDiv = document.getElementById('message');
+        const formData = new FormData();
+        
+        // Add text fields to FormData
+        formData.append('userId', userId);
+        formData.append('username', username);
+        formData.append('title', document.getElementById('title').value);
+        formData.append('subtitle', document.getElementById('subtitle').value);
+        formData.append('category', document.getElementById('category').value);
+        formData.append('description', document.getElementById('description').value);
+
+        // Add images to FormData
+        const imageFiles = document.getElementById('image').files;
+        for (let i = 0; i < imageFiles.length; i++) {
+          formData.append('images', imageFiles[i]);
+        }
+        
+        try {
+          const response = await fetch('http://localhost:3000/api/posts', {
+            method: 'POST',
+            body: formData // No need to set Content-Type header, browser will set it
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok) {
+            messageDiv.className = 'alert alert-success';
+            messageDiv.textContent = 'Post created successfully! Redirecting...';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+              window.location.href = 'timeline.html';
+            }, 2000);
+          } else {
+            messageDiv.className = 'alert alert-danger';
+            messageDiv.textContent = data.error || 'Error creating post';
+            messageDiv.style.display = 'block';
+          }
+        } catch (error) {
+          messageDiv.className = 'alert alert-danger';
+          messageDiv.textContent = 'Error connecting to server';
+          messageDiv.style.display = 'block';
+        }
+      });
+
+      // Sidebar functionality
+      const sidebarBtn = document.getElementById("sidebar-hamburger");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
+      
+      function hideSidebar() {
+        sidebar.style.visibility = "hidden";
+      }
+      sidebarCloseBtn.addEventListener("click", hideSidebar);
+      
+      function showSidebar() {
+        sidebar.style.visibility = "visible";
+      }
+      sidebarBtn.addEventListener("click", showSidebar);
+    </script>
+    <style>
+      #create-entry {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      #create-post-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      #create-post-form input,
+      #create-post-form select,
+      #create-post-form textarea {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      
+      #create-post-form button {
+        margin-top: 20px;
+      }
+      
+      #image-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      
+      .username {
+        margin-right: 15px;
+        font-weight: 500;
+      }
+    </style>
+  </div>
 </body>
 </html>

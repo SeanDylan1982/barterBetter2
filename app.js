@@ -44,4 +44,12 @@ function showEntries() {
   }
 
 }
-showEntries();
+// Initialize timeline on the timeline page
+if (window.location.pathname.includes('timeline.html')) {
+  showEntries();
+  
+  // Fetch posts initially
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchPosts();
+  });
+}

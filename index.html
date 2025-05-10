@@ -6,144 +6,145 @@
   <title>Barter Better</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="timeline.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 </head>
-<body>
-  <div class="app-container">
-    <header id="header">
-      <button type="submit" value="submit" class="btn btn-regular" id="login"><div data-netlify-identity-button></div></button>
-      <div class="login-container" id="login">
-        <a href="./register.html"><button class="btn btn-regular" id="login-btn" type="submit" value="submit"><span>Register <i class="fa fa-user"></i></span></button></a>
-      </div>
-      <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
-      <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
-      <a href="./index.html">
-        <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="">
-          <h2>Barter|Better</h2>
-        </div>
-      </a>
-        <div class="sidebar" id="sidebar">
-        <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
-        <div class="filters-container" id="filters-container">
-          <div class="clear" id="clear-filter">
-            <label for="clear"></label>
-            <br>
-            <button type="submit" value="submit" name="clear" id="clear-filters" class="btn btn-warning">Clear filters</button>
+<body>  <div class="app-container">
+    <header id="header" class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
+      <div class="container">
+        <a href="./index.html" class="navbar-brand">
+          <div class="logo d-flex align-items-center" id="logo">
+            <img src="./img/logo2.png" alt="Barter Better" class="me-2" style="height: 40px;">
+            <h2 class="mb-0">Barter|Better</h2>
           </div>
-          <div class="apply" id="apply-filter">
-            <label for="apply"></label>
-            <br>
-            <button type="submit" value="submit" name="apply" id="apply-filters" class="btn btn-success">Apply filters</button>
+        </a>
+        
+        <div class="d-flex align-items-center">
+          <div class="search-box me-3">
+            <div class="input-group">
+              <input type="search" name="search" id="search-bar" class="form-control" placeholder="Search...">
+              <button type="submit" value="search" name="search" class="btn btn-light" id="magnifying-glass">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
           </div>
-          <div class="category" id="category-filter">
-            <label for="category"></label>
-            <fieldset id="category-section">
-              <legend>Category</legend>
-              <div>
-                <input type="checkbox" id="collections" name="interest" value="collections" checked/>
-                <label for="collections">Collections</label>
-              </div>
-              <div>
-                <input type="checkbox" id="clothing" name="interest" value="clothing"/>
-                <label for="clothing">Clothing</label>
-              </div>
-              <div>
-                <input type="checkbox" id="tools" name="interest" value="tools" />
-                <label for="tools">Tools</label>
-              </div>
-              <div>
-                <input type="checkbox" id="fresh-produce" name="interest" value="fresh-produce" />
-                <label for="fresh-produce">Fresh Produce</label>
-              </div>
-              <div>
-                <input type="checkbox" id="electronics" name="interest" value="electronics" />
-                <label for="electronics">Electronics</label>
-              </div>
-              <div>
-                <input type="checkbox" id="services" name="interest" value="services" />
-                <label for="services">Services</label>
-              </div>
-              <div>
-                <input type="checkbox" id="misc" name="interest" value="misc" />
-                <label for="misc">Miscellaneous</label>
-              </div>
-            </fieldset>
+
+          <div class="btn-group me-3">
+            <button type="button" class="btn btn-light active" data-view="grid">
+              <i class="fa fa-th-large"></i>
+            </button>
+            <button type="button" class="btn btn-light" data-view="list">
+              <i class="fa fa-list"></i>
+            </button>
           </div>
-          <div class="region" id="region-filter">
-            <fieldset id="region-section">
-              <legend>Region</legend>
-              <div>
-                <input type="checkbox" id="ec" name="ec" checked>
-                <label for="ec"><p> Eastern Cape</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="fs" name="fs">
-                <label for="fs"><p> Free State</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="gp" name="gp">
-                <label for="gp"><p> Gauteng</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="kzn" name="kzn">
-                <label for="kzn"><p> Kwa-Zulu Natal</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="lp" name="lp">
-                <label for="lp"><p> Limpopo</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="mp" name="mp">
-                <label for="mp"><p> Mpumalanga</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="nc" name="nc">
-                <label for="nc"><p> Northern Cape</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="nw" name="nw">
-                <label for="nw"><p> North West</p></label>
-              </div>
-              <div>
-                <input type="checkbox" id="wc" name="wc">
-                <label for="wc"><p> Western Cape</p></label>
-              </div>
-          </fieldset>
-          </div>
-        </div>
-      </div>
-      <div class="create-new-post" id="create-new-post">
-        <a href="./createpost.html"> <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button></a>
-      </div>
-    </header>
-    <main>
-      <div class="container-fluid" id="app-container">
-        <ul id="paginated-list" aria-live="polite">
           
-        </ul>
+          <div class="auth-buttons" id="auth-buttons">
+            <a href="./register.html" class="btn btn-light me-2">Register</a>
+            <a href="./login.html" class="btn btn-outline-light">Login</a>
+          </div>
+        </div>
       </div>
-    </main>
-    <footer>
-      <nav class="pagination-container">
-        <button class="pagination-button" id="prev-button" title="Previous page" aria-label="Previous page"> <i class="fa fa-angle-left"></i> </button>
-        <div id="pagination-numbers"></div>
-        <button class="pagination-button" id="next-button" title="Next page" aria-label="Next page"> <i class="fa fa-angle-right"></i> </button>
-      </nav>
-      <a href="#"> <button type="submit" value"submit" class="btn btn-regular" id="back-to-top"> <i class="fa fa-chevron-up"></i> </button> </a>
+    </header>    <main class="py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h4 class="mb-0">Featured Items</h4>
+              <a href="./createpost.html" class="btn btn-success">
+                <i class="fa fa-plus me-2"></i>Create a new post
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="posts-grid" id="posts-container">
+          <!-- Posts will be dynamically added here -->
+        </div>
+
+        <nav class="mt-4" aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <button class="page-link" id="prev-button" aria-label="Previous">
+                <i class="fa fa-angle-left"></i>
+              </button>
+            </li>
+            <div id="pagination-numbers" class="d-flex"></div>
+            <li class="page-item">
+              <button class="page-link" id="next-button" aria-label="Next">
+                <i class="fa fa-angle-right"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </main>    <footer class="footer mt-auto py-3 bg-primary text-white">
+      <div class="container text-center">
+        <button class="btn btn-light btn-sm rounded-circle shadow" id="back-to-top" title="Back to top">
+          <i class="fa fa-chevron-up"></i>
+        </button>
+      </div>
     </footer>
+
+    <!-- Modal for post details -->
+    <div class="modal fade" id="postModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Post Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Content will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src="./form-data.js"></script>
-  <script src="./connect.js"></script>
-  <!-- <script defer src="./netlify.js"></script>
-  <script defer src="./netlifyModule.js"></script> -->
-  <script defer src="./pagination.js"></script>
-  <script defer src="./data.js"></script>
-  <script defer src="./app.js"></script>
+  <!-- Scripts -->
+  <script src="./data.js"></script>
+  <script src="./timeline.js"></script>
+  <script src="./app.js"></script>
+  <script>
+    // Initialize with grid view for index page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Show all posts without filters
+      fetchPosts();
+
+      // View toggle functionality
+      const viewButtons = document.querySelectorAll('[data-view]');
+      viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          viewButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const view = this.dataset.view;
+          const container = document.getElementById('posts-container');
+          container.className = `posts-${view}`;
+        });
+      });
+
+      // Back to top button
+      const backToTopButton = document.getElementById('back-to-top');
+      window.onscroll = function() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          backToTopButton.style.display = 'block';
+        } else {
+          backToTopButton.style.display = 'none';
+        }
+      };
+      
+      backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
 </body>
 </html>

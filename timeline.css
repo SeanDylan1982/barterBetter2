@@ -1,0 +1,302 @@
+/* Timeline styles */
+.timeline {
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 60px);
+  padding: 40px 0;
+}
+
+/* Post Cards */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0 10px;
+}
+
+.posts-list .post-card {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  margin-bottom: 24px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.post-images {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-image {
+  transform: scale(1.05);
+}
+
+.post-content {
+  padding: 16px;
+}
+
+.post-content h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.price-tag {
+  font-size: 24px;
+  font-weight: 600;
+  color: #28a745;
+  margin: 12px 0;
+}
+
+.location-tag {
+  font-size: 13px;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.post-content p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.badge {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.post-footer {
+  padding: 16px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+}
+
+.post-info {
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.post-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.post-actions .btn {
+  padding: 6px 12px;
+  color: #666;
+  transition: color 0.2s;
+}
+
+.post-actions .btn:hover {
+  color: #333;
+}
+
+.post-actions .btn i {
+  margin-right: 4px;
+}
+
+/* Filters */
+.filter-controls {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 80px;
+}
+
+.filter-section {
+  margin-bottom: 24px;
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-section h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-btn {
+  text-align: left;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: #666;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.category-btn:hover {
+  background: #e9ecef;
+  color: #333;
+}
+
+.category-btn.active {
+  background: #28a745;
+  color: white;
+}
+
+.price-range {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.price-range span {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Map Container */
+#map-container {
+  margin-bottom: 24px;
+}
+
+#map {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.map-info-window {
+  padding: 8px;
+  max-width: 200px;
+}
+
+.map-info-window h5 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.map-info-window .price {
+  color: #28a745;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease;
+}
+
+.toast-info {
+  background: #0d6efd;
+}
+
+.toast-success {
+  background: #28a745;
+}
+
+.toast-error {
+  background: #dc3545;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .filter-controls {
+    position: static;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    padding: 20px 0;
+  }
+
+  .posts-list .post-card {
+    grid-template-columns: 1fr;
+  }
+
+  .post-images {
+    aspect-ratio: 16/9;
+  }
+
+  .post-content {
+    padding: 12px;
+  }
+
+  .post-footer {
+    padding: 12px;
+  }
+
+  .filter-section h4 {
+    font-size: 14px;
+  }
+
+  .toast {
+    left: 24px;
+    right: 24px;
+    text-align: center;
+  }
+}

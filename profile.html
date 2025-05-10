@@ -38,81 +38,289 @@
     </header>
     <main>
       <div class="container-fluid" id="container-fluid">
-        <div class="poster" id="user-profile-details">
-          <img src="./img/profile-1.png" alt="">
-          <div class="details" id="create-user-details">
-            <ul id="user-profile-keys">
-              <li>Name</li>
-              <li>Region</li>
-              <li>Contact</li>
-            </ul>
-            <ul id="user-profile-values">
-              <li>Sean Patterson</li>
-              <li>Gauteng</li>
-              <li>+2779 415 7439</li>
-            </ul>
+        <div class="profile-container">
+          <div class="profile-header">
+            <img src="./img/profile-1.png" alt="Profile" class="profile-avatar">
+            <button id="edit-profile" class="btn btn-primary">Edit Profile</button>
+            <button id="logout" class="btn btn-outline-danger">Logout</button>
           </div>
-        </div>
-        <div class="create-new-post" id="create-new-post">
-          <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
-        </div>
-        <div class="my-posts" id="profile-my-posts">
-          <h3 id="profile-my-posts-title"> <i class="fa fa-pen"></i> My posts</h3>
-          <ul id="profile-my-posts-list">
-            <li>
-              <div class="ad-entry" id="adentry">
-                <a href="./posts.html" target="_blank">
-                <img src="./img/mens_footwear_8168725_heromob.jpg" alt="">
-                <h2 id="adtitle">Shoes to swap for pants</h2>
-                <span id="category">Clothing</span>
-                <p id="adbody">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam accusamus aperiam ipsum. Iste officiis culpa ut ea soluta tempore corrupti fuga vitae. Ut culpa deleniti dolore quos ducimus mollitia provident?
-                </p>
-                </a>
+          
+          <div id="profile-info" class="profile-info">
+            <!-- Profile info will be loaded here -->
+          </div>
+          
+          <div id="edit-form" class="profile-edit" style="display: none;">
+            <form id="profile-form">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-control" required>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="notifications" id="profile-notifications">
-          <h3 id="profile-notifications-title"> <i class="fa fa-bell"></i> Notifications</h3>
-          <ul id="profile-notifications-list">
-            <li></li>
-          </ul>
-        </div>
-        <div class="favourites" id="profile-favourites">
-          <h3 id="profile-favourites-title"> <i class="fa fa-heart"></i> Favourites</h3>
-          <ul id="profile-favourites-list">
-            <li>
-              <div class="ad-entry" id="adentry">
-                <a href="./posts.html" target="_blank">
-                <img src="./img/shoes4.png" alt="">
-                <h2 id="adtitle">Shoes to swap for pants</h2>
-                <span id="category">Clothing</span>
-                <p id="adbody">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam accusamus aperiam ipsum. Iste officiis culpa ut ea soluta tempore corrupti fuga vitae. Ut culpa deleniti dolore quos ducimus mollitia provident?
-                </p>
-                </a>
+              <div class="form-group">
+                <label for="region">Region</label>
+                <select id="region" class="form-control" required>
+                  <option value="Gauteng">Gauteng</option>
+                  <option value="Western Cape">Western Cape</option>
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                  <option value="Free State">Free State</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="Limpopo">Limpopo</option>
+                  <option value="North West">North West</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                </select>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="settings" id="profile-settings">
-          <h3 id="profile-settings-title"> <i class="fa fa-cog"></i> Settings</h3>
-          <ul id="profile-settings-list">
-            <li></li>
-          </ul>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-success">Save Changes</button>
+              <button type="button" class="btn btn-secondary" onclick="toggleEditMode(false)">Cancel</button>
+            </form>
+          </div>
+          
+          <div class="user-posts">
+            <h3>My Posts</h3>
+            <div id="user-posts-container"></div>
+          </div>
         </div>
       </div>
     </main>
-    <footer>
-      <a href="#"> <button type="submit" value"submit" class="btn btn-regular" id="back-to-top"> <i class="fa fa-chevron-up"></i> </button> </a>
-    </footer>
-  </div>
+    <script>
+      // Check if user is logged in
+      const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
+      
+      if (!userId || !username) {
+        window.location.href = 'login.html';
+      }
+      
+      // Add username to header
+      const settingsDiv = document.querySelector('.settings');
+      if (username && settingsDiv) {
+        const usernameSpan = document.createElement('span');
+        usernameSpan.className = 'username';
+        usernameSpan.textContent = username;
+        settingsDiv.insertBefore(usernameSpan, settingsDiv.firstChild);
+      }
 
-  <script src="./form-data.js"></script>
-  <script src="./connect.js"></script>
-  <!-- <script defer src="./netlify.js"></script>
-  <script defer src="./netlifyModule.js"></script> -->
-  <script defer src="./pagination.js"></script>
-  <script defer src="./data.js"></script>
-  <script defer src="./app.js"></script>
+      let userProfile = null;
+
+      // Fetch user profile
+      async function fetchProfile() {
+        try {
+          const response = await fetch(`http://localhost:3000/api/profile/${userId}`);
+          const profile = await response.json();
+          userProfile = profile;
+          
+          displayProfile(profile);
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        }
+      }
+
+      // Display profile information
+      function displayProfile(profile) {
+        const profileInfo = document.getElementById('profile-info');
+        profileInfo.innerHTML = `
+          <div class="info-group">
+            <h3>${profile.username}</h3>
+            <p>${profile.email}</p>
+          </div>
+          <div class="info-group">
+            <label>Full Name</label>
+            <p>${profile.fullName || 'Not set'}</p>
+          </div>
+          <div class="info-group">
+            <label>Region</label>
+            <p>${profile.region || 'Not set'}</p>
+          </div>
+          <div class="info-group">
+            <label>Phone</label>
+            <p>${profile.phone || 'Not set'}</p>
+          </div>
+          <div class="info-group">
+            <label>Bio</label>
+            <p>${profile.bio || 'No bio added yet'}</p>
+          </div>
+        `;
+
+        // Populate edit form
+        document.getElementById('fullName').value = profile.fullName || '';
+        document.getElementById('region').value = profile.region || '';
+        document.getElementById('phone').value = profile.phone || '';
+        document.getElementById('bio').value = profile.bio || '';
+      }
+
+      // Toggle edit mode
+      function toggleEditMode(show) {
+        document.getElementById('profile-info').style.display = show ? 'none' : 'block';
+        document.getElementById('edit-form').style.display = show ? 'block' : 'none';
+      }
+
+      // Handle profile form submission
+      document.getElementById('profile-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const profileData = {
+          userId,
+          fullName: document.getElementById('fullName').value,
+          region: document.getElementById('region').value,
+          phone: document.getElementById('phone').value,
+          bio: document.getElementById('bio').value
+        };
+        
+        try {
+          const response = await fetch('http://localhost:3000/api/profile', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(profileData)
+          });
+          
+          if (response.ok) {
+            await fetchProfile();
+            toggleEditMode(false);
+          }
+        } catch (error) {
+          console.error('Error updating profile:', error);
+        }
+      });
+
+      // Handle logout
+      document.getElementById('logout').addEventListener('click', function() {
+        localStorage.removeItem('userId');
+        localStorage.removeItem('username');
+        window.location.href = 'login.html';
+      });
+
+      // Handle edit button
+      document.getElementById('edit-profile').addEventListener('click', function() {
+        toggleEditMode(true);
+      });
+
+      // Fetch user's posts
+      async function fetchUserPosts() {
+        try {
+          const response = await fetch('http://localhost:3000/api/posts');
+          const posts = await response.json();
+          
+          const userPosts = posts.filter(post => post.userId === userId);
+          const container = document.getElementById('user-posts-container');
+          
+          if (userPosts.length === 0) {
+            container.innerHTML = '<p>No posts yet</p>';
+            return;
+          }
+          
+          container.innerHTML = '';
+          userPosts.forEach(post => {
+            const postElement = document.createElement('div');
+            postElement.className = 'post-card';
+            postElement.innerHTML = `
+              <h4>${post.title}</h4>
+              <p>${post.description}</p>
+              <div class="post-stats">
+                <span><i class="fa fa-thumbs-up"></i> ${post.likes || 0}</span>
+                <span><i class="fa fa-comment"></i> ${post.comments?.length || 0}</span>
+              </div>
+            `;
+            container.appendChild(postElement);
+          });
+        } catch (error) {
+          console.error('Error fetching user posts:', error);
+        }
+      }
+
+      // Initialize
+      fetchProfile();
+      fetchUserPosts();
+      
+      // Sidebar functionality
+      const sidebarBtn = document.getElementById("sidebar-hamburger");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarCloseBtn = document.getElementById("sidebar-close-btn");
+      
+      function hideSidebar() {
+        sidebar.style.visibility = "hidden";
+      }
+      sidebarCloseBtn.addEventListener("click", hideSidebar);
+      
+      function showSidebar() {
+        sidebar.style.visibility = "visible";
+      }
+      sidebarBtn.addEventListener("click", showSidebar);
+    </script>
+    <style>
+      .profile-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      
+      .profile-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+      
+      .profile-info, .profile-edit {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+      
+      .info-group {
+        margin-bottom: 15px;
+      }
+      
+      .info-group label {
+        font-weight: 500;
+        color: #666;
+      }
+      
+      .user-posts {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      
+      .post-card {
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+      }
+      
+      .post-card:last-child {
+        border-bottom: none;
+      }
+      
+      .post-stats {
+        display: flex;
+        gap: 15px;
+        color: #666;
+      }
+      
+      .form-group {
+        margin-bottom: 15px;
+      }
+      
+      .username {
+        margin-right: 15px;
+        font-weight: 500;
+      }
+    </style>
+  </div>
 </body>
 </html>
