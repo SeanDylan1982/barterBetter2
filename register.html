@@ -7,8 +7,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script type="module">
+    import config from './js/config.js';
+    window.config = config;
+  </script>
 </head>
 <body>
   <div class="app-container">
@@ -39,8 +42,8 @@
       <div class="create-new-post" id="create-new-post">
         <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
       </div>
-    </header>
-    <main id="loginMain">
+    </header>    <main id="loginMain">
+      <div id="error-message" class="alert alert-danger" style="display: none;"></div>
       <div class="form-control" id="form-container">
         <form id="register-form" class="form-control" name="register">
           <div class="form-group">
@@ -122,6 +125,49 @@
           messageDiv.style.display = 'block';
         }
       });
+      
+      document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('register-form');
+  const errorMessageDiv = document.getElementById('error-message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMessageDiv.style.display = 'none';
+
+    try {
+      const formData = {
+        username: document.getElementById('username').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+      };
+
+      console.log('Submitting registration:', { ...formData, password: '[HIDDEN]' });
+
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      // Store user info and redirect
+      localStorage.setItem('userId', data.userId);
+      localStorage.setItem('username', data.username);
+      window.location.href = '/createprofile.html';
+    } catch (error) {
+      console.error('Registration error:', error);
+      errorMessageDiv.textContent = error.message;
+      errorMessageDiv.style.display = 'block';
+    }
+  });
+});
       
       // Sidebar functionality
       const sidebarBtn = document.getElementById("sidebar-hamburger");

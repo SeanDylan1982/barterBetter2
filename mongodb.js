@@ -8,74 +8,101 @@ if (!process.env.DB_PASSWORD) {
   process.exit(1);
 }
 
-const uri = `mongodb+srv://sean:${process.env.DB_PASSWORD}@cluster0.xxi4s51.mongodb.net/?retryWrites=true&w=majority`;
+// Log environment variable status (masking the actual password)
+console.log('Environment check:', {
+  envExists: !!process.env.DB_PASSWORD,
+  envPath: path.join(__dirname, '.env'),
+  workingDir: __dirname
+});
 
-console.log('Attempting to connect to MongoDB...');
+const uri = `mongodb+srv://sean:${process.env.DB_PASSWORD}@cluster0.xxi4s51.mongodb.net/barterBetter?retryWrites=true&w=majority`;
 
-const client = new MongoClient(uri, {
+const mongoOptions = {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
   },
   maxPoolSize: 50,
-  connectTimeoutMS: 10000, // Increased timeout
+  connectTimeoutMS: 30000,
+  socketTimeoutMS: 45000,
   retryWrites: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000,
+  heartbeatFrequencyMS: 1000
+};
+
+console.log('Initializing MongoDB client...');
+const client = new MongoClient(uri, mongoOptions);
 
 let dbConnection;
 let isConnected = false;
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 module.exports = {
   connectToDb: async (callback) => {
-    try {
-      if (isConnected) {
-        console.log('Using existing database connection');
+    const maxRetries = 3;
+    let retryCount = 0;
+
+    while (retryCount < maxRetries) {
+      try {
+        if (isConnected) {
+          console.log('Using existing database connection');
+          return callback();
+        }
+
+        console.log(`Connecting to MongoDB (attempt ${retryCount + 1}/${maxRetries})...`);
+        await client.connect();
+        
+        // Test the connection
+        await client.db("admin").command({ ping: 1 });
+        dbConnection = client.db('barterBetter');
+        isConnected = true;
+        console.log('Successfully connected to MongoDB.');
+        
+        // Handle application termination
+        process.on('SIGINT', async () => {
+          if (client) {
+            await client.close();
+            isConnected = false;
+            console.log('MongoDB connection closed.');
+          }
+          process.exit(0);
+        });
+
+        // Handle unexpected errors
+        process.on('uncaughtException', async (err) => {
+          console.error('Uncaught Exception:', err);
+          if (client) {
+            await client.close();
+            isConnected = false;
+          }
+          process.exit(1);
+        });
+
         return callback();
-      }
-
-      console.log('Connecting to MongoDB...');
-      await client.connect();
-      
-      // Test the connection
-      await client.db("admin").command({ ping: 1 });
-      dbConnection = client.db('barterBetter');
-      isConnected = true;
-      console.log('Successfully connected to MongoDB.');
-      
-      // Handle application termination
-      process.on('SIGINT', async () => {
-        if (client) {
-          await client.close();
-          isConnected = false;
-          console.log('MongoDB connection closed.');
+      } catch (err) {
+        console.error(`Error connecting to MongoDB (attempt ${retryCount + 1}/${maxRetries}):`, err);
+        
+        if (err.name === 'MongoServerSelectionError') {
+          console.error('Could not connect to MongoDB server. Please check:');
+          console.error('1. Your internet connection');
+          console.error('2. MongoDB Atlas status');
+          console.error('3. Your IP whitelist in MongoDB Atlas');
+          console.error('4. Database credentials');
         }
-        process.exit(0);
-      });
 
-      // Handle unexpected errors
-      process.on('uncaughtException', async (err) => {
-        console.error('Uncaught Exception:', err);
-        if (client) {
-          await client.close();
-          isConnected = false;
+        retryCount++;
+        if (retryCount < maxRetries) {
+          console.log(`Retrying in 5 seconds...`);
+          await sleep(5000);
+        } else {
+          console.error('Max retries reached. Could not connect to MongoDB.');
+          return callback(err);
         }
-        process.exit(1);
-      });
-
-      return callback();
-    } catch (err) {
-      console.error('Error connecting to MongoDB:', err);
-      console.error('Connection URI:', uri.replace(process.env.DB_PASSWORD, '****'));
-      if (err.name === 'MongoServerSelectionError') {
-        console.error('Could not connect to MongoDB server. Please check:');
-        console.error('1. Your internet connection');
-        console.error('2. MongoDB Atlas status');
-        console.error('3. Your IP whitelist in MongoDB Atlas');
       }
-      return callback(err);
     }
   },
   getDb: () => {

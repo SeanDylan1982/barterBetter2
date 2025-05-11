@@ -82,29 +82,70 @@ connectToDb(async (err) => {
 // User Registration
 app.post('/api/register', async (req, res) => {
   try {
+    console.log('Registration attempt:', { ...req.body, password: '[HIDDEN]' });
+    
     const { username, email, password } = req.body;
     
+    // Validate input
+    if (!username || !email || !password) {
+      console.error('Missing required fields:', { 
+        hasUsername: !!username, 
+        hasEmail: !!email, 
+        hasPassword: !!password 
+      });
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        details: {
+          username: !username ? 'Username is required' : null,
+          email: !email ? 'Email is required' : null,
+          password: !password ? 'Password is required' : null
+        }
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.error('Invalid email format:', email);
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     // Check if user already exists
+    console.log('Checking for existing user with email:', email);
     const existingUser = await db.collection('users').findOne({ email });
     if (existingUser) {
+      console.log('User already exists with email:', email);
       return res.status(400).json({ error: 'User already exists' });
     }
 
     // Hash password
+    console.log('Hashing password...');
     const hashedPassword = await bcrypt.hash(password, 10);
     
     // Create new user
-    const result = await db.collection('users').insertOne({
+    const newUser = {
       username,
       email,
       password: hashedPassword,
       createdAt: new Date(),
       profileComplete: false
+    };
+    
+    console.log('Creating new user:', { ...newUser, password: '[HIDDEN]' });
+    const result = await db.collection('users').insertOne(newUser);
+    
+    console.log('User created successfully:', result.insertedId);
+    res.status(201).json({ 
+      message: 'User registered successfully',
+      userId: result.insertedId,
+      username: username
     });
-
-    res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    res.status(500).json({ error: 'Error registering user' });
+    console.error('Registration error:', err);
+    res.status(500).json({ 
+      error: 'Error registering user',
+      details: err.message 
+    });
   }
 });
 
@@ -643,3 +684,27 @@ app.get('/api/posts/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch post' });
   }
 });
+
+// Test endpoint to verify MongoDB connection
+app.get('/api/test-connection', async (req, res) => {
+  try {
+    // Try to ping the database
+    await db.command({ ping: 1 });
+    // Try to get a count of users
+    const userCount = await db.collection('users').countDocuments();
+    res.json({ 
+      status: 'success',
+      message: 'MongoDB connection is working',
+      userCount
+    });
+  } catch (error) {
+    console.error('Database test failed:', error);
+    res.status(500).json({ 
+      status: 'error',
+      message: 'Failed to connect to database',
+      error: error.message
+    });
+  }
+});
+
+module.exports = app;
