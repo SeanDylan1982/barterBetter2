@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barter Better</title>
+  <title>Create Post - Barter Better</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -12,71 +12,70 @@
 </head>
 <body>
   <div class="app-container">
-    <header id="header">
-      <button type="submit" value="submit" class="btn btn-regular" id="login"></button>
-      <div class="settings" id="settings">
-        <i class="fa fa-bell"></i>
-        <i class="fa fa-cog"></i>
-        <a href="./profile.html"><img src="./img/profile-1.png" alt="user"></a>
-      </div>
-      <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
-      <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
-      <a href="#">
-        <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="logo">
-          <h2>Barter|Better</h2>
-        </div>
-      </a>
-        <div class="sidebar" id="sidebar">
-        <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="logo">
-          <h2>Barter|Better</h2>
-        </div>
-        <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
-      </div>
-      <div class="create-new-post" id="create-new-post">
-        <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
-      </div>
-    </header>
+    <!-- Include standardized header -->
+    <div id="header-container">
+      <!-- Header will be loaded here -->
+    </div>
     <main>
       <div class="container-fluid">
         <div class="form-control" id="create-entry">
           <h1 id="create-post-heading">Create a new post</h1>
-          <form id="create-post-form">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" placeholder="Title" required>
-            <label for="subtitle">Sub-title</label>
-            <input type="text" name="subtitle" id="subtitle" placeholder="Sub-title">
-            <label for="category">Category</label>
-            <select name="category" id="category" required>
-              <option value="">Select a category</option>
-              <option value="clothing">Clothing</option>
-              <option value="electronics">Electronics</option>
-              <option value="furniture">Furniture</option>
-              <option value="books">Books</option>
-              <option value="other">Other</option>
-            </select>
-            <label for="region">Region</label>
-            <select name="region" id="region" required>
-              <option value="">Select your region</option>
-              <option value="gauteng">Gauteng</option>
-              <option value="western-cape">Western Cape</option>
-              <option value="eastern-cape">Eastern Cape</option>
-              <option value="kwazulu-natal">KwaZulu-Natal</option>
-              <option value="free-state">Free State</option>
-              <option value="mpumalanga">Mpumalanga</option>
-              <option value="limpopo">Limpopo</option>
-              <option value="north-west">North West</option>
-              <option value="northern-cape">Northern Cape</option>
-            </select>
-            <label for="description">Description</label>
-            <textarea name="description" id="description" rows="5" placeholder="Describe your item..." required></textarea>
-            <label for="image">Images</label>
-            <input type="file" name="image" id="image" accept="image/*" multiple>
-            <div id="image-preview"></div>
-            <button type="submit" class="btn btn-success">Create Post <i class="fa fa-paper-plane"></i></button>
+          <form id="create-post-form" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" name="title" id="title" placeholder="What are you offering?" required>
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category</label>
+              <select class="form-control" name="category" id="category" required>
+                <option value="">Select a category</option>
+                <option value="Clothes">Clothing</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Books">Books</option>
+                <option value="Services">Services</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="region">Region</label>
+              <select class="form-control" name="region" id="region" required>
+                <option value="">Select your region</option>
+                <option value="Gauteng">Gauteng</option>
+                <option value="Western Cape">Western Cape</option>
+                <option value="Eastern Cape">Eastern Cape</option>
+                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                <option value="Free State">Free State</option>
+                <option value="Mpumalanga">Mpumalanga</option>
+                <option value="Limpopo">Limpopo</option>
+                <option value="North West">North West</option>
+                <option value="Northern Cape">Northern Cape</option>
+              </select>
+            </div>            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" name="description" id="description" rows="5" 
+                placeholder="Describe what you're offering and what you'd like in return..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="contact">Contact Information</label>
+              <input type="text" class="form-control" name="contact" id="contact" 
+                placeholder="How should people contact you? (phone, email, etc.)" required>
+            </div>
+
+            <div class="form-group">
+              <label for="images">Images</label>
+              <input type="file" class="form-control-file" name="images" id="images" 
+                accept="image/*" multiple>
+              <small class="form-text text-muted">You can upload up to 5 images. First image will be the main image.</small>
+            </div>
+
+            <div id="message" class="alert" style="display: none;"></div>
+
+            <button type="submit" class="btn btn-primary">Create Post</button>
           </form>
-          <div id="message" class="alert" style="display: none;"></div>
         </div>
       </div>
     </main>
@@ -99,7 +98,7 @@
       }
       
       // Handle image preview
-      const imageInput = document.getElementById('image');
+      const imageInput = document.getElementById('images');
       const imagePreview = document.getElementById('image-preview');
       
       imageInput.addEventListener('change', function(e) {
@@ -133,10 +132,11 @@
         formData.append('subtitle', document.getElementById('subtitle').value);
         formData.append('category', document.getElementById('category').value);
         formData.append('region', document.getElementById('region').value);
-        formData.append('description', document.getElementById('description').value);
+        formData.append('description', document.getElementById('body').value);
+        formData.append('contact', document.getElementById('contact').value);
 
         // Add images to FormData
-        const imageFiles = document.getElementById('image').files;
+        const imageFiles = document.getElementById('images').files;
         for (let i = 0; i < imageFiles.length; i++) {
           formData.append('images', imageFiles[i]);
         }
@@ -222,5 +222,18 @@
       }
     </style>
   </div>
+
+  <script src="./js/navbar.js"></script>
+  <script src="./js/createPost.js"></script>
+  <script>
+    // Load header
+    fetch('./header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-container').innerHTML = html;
+        // Initialize navbar after loading
+        setupNavbar();
+      });
+  </script>
 </body>
 </html>

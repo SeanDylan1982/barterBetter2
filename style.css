@@ -12,23 +12,80 @@ html a {
   text-decoration: none;
 }
 
-header {
-  position: fixed;
+header,
+.navbar {
+  position: absolute;
   top: 0;
   left: 0;
   margin: 0;
-  width: 100vw;
+  justify-content: space-between;
+  align-self: start;
   height: 50px;
-  /* background-color:  #6c56d1; */
-  background: linear-gradient(80deg, #5841c2 0%, #6252a7 53%, #5841c2 100%);
+  width: 100%;  
+  background: linear-gradient(80deg, #5841c2 0%, #7852a7 53%, #5841c2 100%);
   color: #f1f1f1;
   text-decoration: none;
-  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000;
 }
 
-header #login a {
-  position: fixed;
-  top: 5px;
+.navbar .navbar-brand {
+  color: #f8f9fa;
+}
+
+.navbar .navbar-brand:hover {
+  color: #f8f9fa;
+}
+
+.navbar .search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin: 25px;
+  max-width: 400px;
+}
+
+/* .navbar .search-container .input-group {
+  background: rgba(255,255,255,0.1);
+  border-radius: 25px 0 0 25px;
+  padding: 3px;
+} */
+
+.navbar .search-container input {
+  border-radius: 25px 0 0 25px;
+  border: none;
+  background: #fff;
+}
+
+.navbar .search-container .btn {
+  border-radius: 0 25px 25px 0;
+  border: none;
+}
+
+.navbar .user-menu .dropdown-toggle {
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.navbar .user-menu .dropdown-toggle::after {
+  display: none;
+}
+
+.navbar .create-post .btn {
+  background-color: greenyellow;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 500;
+  margin: 25px;
+}
+
+.navbar .auth-buttons .btn {
+  border-radius: 20px;
+  padding: 8px 16px;
   right: 5px;
   margin: 0;
   font-size: 1.5rem;

@@ -41,16 +41,41 @@ app.use(bodyParser.urlencoded({ extended: true }));  // Add this line for form d
 app.use(express.static('.'));
 
 let db;
+const PORT = process.env.PORT || 3001; // Try port 3001 if 3000 is taken
 
-// Connect to MongoDB
-connectToDb((err) => {
+// Function to start server
+const startServer = (port) => {
+  return new Promise((resolve, reject) => {
+    const server = app.listen(port)
+      .once('listening', () => {
+        console.log(`Server is running on port ${port}`);
+        resolve(server);
+      })
+      .once('error', err => {
+        if (err.code === 'EADDRINUSE') {
+          console.log(`Port ${port} is busy, trying ${port + 1}`);
+          server.close();
+          resolve(startServer(port + 1));
+        } else {
+          reject(err);
+        }
+      });
+  });
+};
+
+// Connect to MongoDB and start server
+connectToDb(async (err) => {
   if (!err) {
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
-    db = getDb();
+    try {
+      db = getDb();
+      await startServer(PORT);
+    } catch (error) {
+      console.error('Failed to start server:', error);
+      process.exit(1);
+    }
   } else {
     console.error('Failed to connect to database:', err);
+    process.exit(1);
   }
 });
 
@@ -132,90 +157,71 @@ app.post('/api/profile', async (req, res) => {
   }
 });
 
-// Create Post
+// Create new post
 app.post('/api/posts', upload.array('images', 5), async (req, res) => {
   try {
-    console.log('Received post creation request:', req.body);  // Debug logging
-    const { userId, username, title, subtitle, category, region, description } = req.body;
-    
-    // Input validation with detailed error message
-    const missingFields = [];
-    if (!userId) missingFields.push('userId');
-    if (!username) missingFields.push('username');
-    if (!title) missingFields.push('title');
-    if (!category) missingFields.push('category');
-    if (!region) missingFields.push('region');
-    if (!description) missingFields.push('description');
-    
-    if (missingFields.length > 0) {
-      console.log('Missing required fields:', missingFields);  // Debug logging
-      return res.status(400).json({
-        error: `Missing required fields: ${missingFields.join(', ')}`
+    const { title, description, category, region, contact } = req.body;
+    const userId = req.body.userId; // From frontend localStorage
+      // Validate required fields
+    if (!title || !description || !category || !region || !userId) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        missing: Object.entries({ title, description, category, region, userId })
+          .filter(([_, value]) => !value)
+          .map(([key]) => key),
+        receivedFields: { title, description, category, region, userId }
       });
     }
+    
+    console.log('Creating post with userId:', userId);// Get user info
+    let user;
+    try {
+      user = await db.collection('users').findOne({ _id: new ObjectId(userId) });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+    } catch (error) {
+      console.error('Error finding user:', error);
+      return res.status(400).json({ error: 'Invalid user ID format' });
+    }
 
-    // Process uploaded images
-    const imageUrls = [];
+    // Create post object
+    const post = {
+      title,
+      description, // Using description instead of body
+      category,
+      region,
+      contact,
+      userId: new ObjectId(userId),
+      author: user.username,
+      createdAt: new Date(),
+      likes: [],
+      comments: [],
+      image: './img/logo2.png' // Default image
+    };
+
+    // Upload images to Cloudinary if provided
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        try {
-          const result = await cloudinary.uploader.upload(file.path);
-          imageUrls.push(result.secure_url);
-          // Clean up the uploaded file
-          fs.unlinkSync(file.path);
-        } catch (uploadError) {
-          console.error('Error uploading image:', uploadError);
-          // Continue with other images if one fails
-        }
+      const file = req.files[0]; // Get first image
+      try {
+        const result = await cloudinary.uploader.upload(file.path);
+        post.image = result.secure_url;
+        // Clean up uploaded file
+        fs.unlinkSync(file.path);
+      } catch (err) {
+        console.error('Error uploading to Cloudinary:', err);
       }
     }
 
-    // Create the post object with all required fields
-    const post = {
-      userId: new ObjectId(userId),
-      username,
-      title,
-      subtitle: subtitle || '',
-      category,
-      region,
-      description,
-      imageUrls,
-      createdAt: new Date(),
-      likes: [],
-      comments: []
-    };
-
-    console.log('Saving post to database:', post);  // Debug logging
-    
-    // Ensure we have a database connection
-    if (!db) {
-      throw new Error('Database connection not established');
-    }
-    
+    // Insert post into database
     const result = await db.collection('posts').insertOne(post);
-    
-    // Verify the insert was successful
-    const savedPost = await db.collection('posts').findOne({ _id: result.insertedId });
-    
-    if (!savedPost) {
-      throw new Error('Post was not saved successfully');
-    }
-    
-    console.log('Post saved successfully:', savedPost);  // Debug logging
-    
     res.status(201).json({ 
-      message: 'Post created successfully', 
-      post: savedPost
+      message: 'Post created successfully',
+      postId: result.insertedId 
     });
-  } catch (err) {
-    console.error('Error creating post:', err);
-    // Send a more detailed error message
-    res.status(500).json({ 
-      error: 'Error creating post',
-      details: err.message,
-      // Don't expose stack trace in production
-      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
-    });
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ error: 'Error creating post' });
   }
 });
 
@@ -382,5 +388,258 @@ app.put('/api/notifications/:notificationId', async (req, res) => {
     res.json({ message: 'Notification marked as read' });
   } catch (err) {
     res.status(500).json({ error: 'Error updating notification' });
+  }
+});
+
+// Get Posts with filtering and sorting
+app.get('/api/posts', async (req, res) => {
+  try {
+    const {
+      category,
+      region,
+      minPrice,
+      maxPrice,
+      condition,
+      sortBy,
+      sortOrder,
+      page = 1,
+      limit = 10
+    } = req.query;
+
+    // Build filter query
+    const filter = {};
+    if (category && category !== 'all') filter.category = category;
+    if (region && region !== 'all') filter.region = region;
+    if (condition && condition !== 'all') filter.condition = condition;
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = Number(minPrice);
+      if (maxPrice) filter.price.$lte = Number(maxPrice);
+    }
+
+    // Build sort query
+    const sort = {};
+    if (sortBy) {
+      sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    } else {
+      sort.createdAt = -1; // Default sort by newest
+    }
+
+    // Execute query with pagination
+    const skip = (page - 1) * limit;
+    const posts = await db.collection('posts')
+      .find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(Number(limit))
+      .toArray();
+
+    // Get total count for pagination
+    const total = await db.collection('posts').countDocuments(filter);
+
+    res.json({
+      posts,
+      total,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit)
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching posts' });
+  }
+});
+
+// Like/Unlike post
+app.post('/api/posts/:postId/like', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { userId } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ error: 'User must be logged in' });
+    }
+
+    const post = await db.collection('posts').findOne({ _id: new ObjectId(postId) });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    const likes = post.likes || [];
+    const userIdObj = new ObjectId(userId);
+    const hasLiked = likes.some(id => id.equals(userIdObj));
+
+    if (hasLiked) {
+      // Unlike
+      await db.collection('posts').updateOne(
+        { _id: new ObjectId(postId) },
+        { $pull: { likes: userIdObj } }
+      );
+    } else {
+      // Like
+      await db.collection('posts').updateOne(
+        { _id: new ObjectId(postId) },
+        { $push: { likes: userIdObj } }
+      );
+    }
+
+    res.json({ liked: !hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating like status' });
+  }
+});
+
+// Add comment
+app.post('/api/posts/:postId/comments', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { userId, text } = req.body;
+
+    if (!userId || !text) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const user = await db.collection('users').findOne({ _id: new ObjectId(userId) });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const comment = {
+      _id: new ObjectId(),
+      userId: new ObjectId(userId),
+      author: user.username,
+      text,
+      createdAt: new Date()
+    };
+
+    await db.collection('posts').updateOne(
+      { _id: new ObjectId(postId) },
+      { $push: { comments: comment } }
+    );
+
+    res.status(201).json(comment);
+  } catch (error) {
+    res.status(500).json({ error: 'Error adding comment' });
+  }
+});
+
+// Delete post (only by owner)
+app.delete('/api/posts/:postId', async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const { userId } = req.body;
+
+    const post = await db.collection('posts').findOne({ _id: new ObjectId(postId) });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    if (post.userId.toString() !== userId) {
+      return res.status(403).json({ error: 'Not authorized to delete this post' });
+    }
+
+    await db.collection('posts').deleteOne({ _id: new ObjectId(postId) });
+    res.json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error deleting post' });
+  }
+});
+
+// Posts endpoints with improved error handling
+app.post('/api/posts', upload.single('image'), async (req, res) => {
+  try {
+    const { title, description, userId, username, category } = req.body;
+    
+    // Validate required fields
+    if (!title || !description || !userId || !username || !category) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Validate userId format
+    if (!ObjectId.isValid(userId)) {
+      return res.status(400).json({ error: 'Invalid user ID format' });
+    }
+
+    let imageUrl = null;
+    if (req.file) {
+      try {
+        const result = await cloudinary.uploader.upload(req.file.path);
+        imageUrl = result.secure_url;
+        // Clean up the local file
+        fs.unlinkSync(req.file.path);
+      } catch (uploadError) {
+        console.error('Image upload error:', uploadError);
+        return res.status(500).json({ error: 'Failed to upload image' });
+      }
+    }
+
+    const post = {
+      title,
+      description,
+      userId: new ObjectId(userId),
+      username,
+      category,
+      imageUrl,
+      createdAt: new Date(),
+      likes: 0,
+      comments: []
+    };
+
+    const result = await db.collection('posts').insertOne(post);
+    res.status(201).json({ 
+      message: 'Post created successfully',
+      postId: result.insertedId 
+    });
+  } catch (error) {
+    console.error('Create post error:', error);
+    res.status(500).json({ error: 'Failed to create post' });
+  }
+});
+
+app.get('/api/posts', async (req, res) => {
+  try {
+    const { category, userId, page = 1, limit = 10 } = req.query;
+    const skip = (page - 1) * limit;
+    
+    let query = {};
+    if (category) query.category = category;
+    if (userId && ObjectId.isValid(userId)) query.userId = new ObjectId(userId);
+
+    const [posts, total] = await Promise.all([
+      db.collection('posts')
+        .find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit))
+        .toArray(),
+      db.collection('posts').countDocuments(query)
+    ]);
+
+    res.json({
+      posts,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(total / limit),
+      totalPosts: total
+    });
+  } catch (error) {
+    console.error('Fetch posts error:', error);
+    res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+});
+
+app.get('/api/posts/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid post ID format' });
+    }
+
+    const post = await db.collection('posts').findOne({ _id: new ObjectId(id) });
+    if (!post) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json(post);
+  } catch (error) {
+    console.error('Fetch post error:', error);
+    res.status(500).json({ error: 'Failed to fetch post' });
   }
 });

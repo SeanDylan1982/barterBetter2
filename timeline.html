@@ -14,55 +14,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 </head>
 <body>  <div class="app-container">
-    <header id="header" class="navbar navbar-expand-lg navbar-dark bg-primary py-3">
-      <div class="container">
-        <a href="./index.html" class="navbar-brand">
-          <div class="logo d-flex align-items-center" id="logo">
-            <img src="./img/logo2.png" alt="Barter Better" class="me-2" style="height: 40px;">
-            <h2 class="mb-0">Barter|Better</h2>
-          </div>
-        </a>
-        
-        <div class="d-flex align-items-center">
-          <div class="search-box me-3">
-            <div class="input-group">
-              <input type="search" name="search" id="search-bar" class="form-control" placeholder="Search...">
-              <button type="submit" value="search" name="search" class="btn btn-light" id="magnifying-glass">
-                <i class="fa fa-search"></i>
-              </button>
-            </div>
-          </div>
-          
-          <button class="btn btn-light me-2" id="view-toggle" title="Toggle view">
-            <i class="fa fa-th-large"></i>
-          </button>
-          
-          <button class="btn btn-light me-2" id="filters-toggle" title="Show filters">
-            <i class="fa fa-filter"></i>
-          </button>
-          
-          <div class="settings ms-2" id="settings">
-            <button class="btn btn-light position-relative me-2">
-              <i class="fa fa-bell"></i>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                2
-              </span>
-            </button>
-            <div class="dropdown d-inline-block">
-              <button class="btn btn-light dropdown-toggle" type="button" id="userMenu" data-toggle="dropdown">
-                <img src="./img/profile-1.png" alt="user" class="rounded-circle" style="width: 24px; height: 24px;">
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a href="./profile.html" class="dropdown-item">Profile</a>
-                <a href="#" class="dropdown-item">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">Logout</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    <!-- Include standardized header -->
+    <div id="header-container">
+      <!-- Header will be loaded here -->
+    </div>
         <div class="sidebar" id="sidebar">
         <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
         <div class="filters-container" id="filters-container">
@@ -153,9 +108,9 @@
           </div>
         </div>
       </div>
-      <div class="create-new-post" id="create-new-post">
+      <!-- <div class="create-new-post" id="create-new-post">
         <a href="./createpost.html"> <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button></a>
-      </div>
+      </div> -->
     </header>
     <main>
       <div class="timeline" id="timeline">
@@ -284,10 +239,20 @@
           </div>
         </div>
       </div>
-    </main>
-    <!-- Load scripts -->
+    </main>    <!-- Load scripts -->
+    <script src="./js/navbar.js"></script>
     <script src="./timeline.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+    <script>
+      // Load header
+      fetch('./header.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('header-container').innerHTML = html;
+          // Initialize navbar after loading
+          setupNavbar();
+        });
+    </script>
   </body>
 </html>
 

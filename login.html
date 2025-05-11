@@ -11,32 +11,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
   
 </head>
-<body>
-  <div class="app-container">
-    <header id="header">
-      <button type="submit" value="submit" class="btn btn-regular" id="login"><div data-netlify-identity-button></div></button>
-      <div class="login-container" id="login">
-        <a href="./index.html"><button class="btn btn-regular" id="login-btn" type="submit" value="submit"><span>Home <i class="fa fa-home"></i></span></button></a>
-      </div>
-      <input type="search" name="search" id="search-bar" placeholder=" Search..."><button type="submit" value="search" name="search" class="btn btn-regular" id="magnifying-glass"> <i class="fa fa-search"></i> </button>
-      <button type="submit" class="btn btn-success" id="sidebar-hamburger"> <i class="fa fa-bars"></i> </button>
-      <a href="#">
-        <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="">
-          <h2>Barter|Better</h2>
-        </div>
-      </a>
-        <div class="sidebar" id="sidebar">
-        <div class="logo" id="logo">
-          <img src="./img/logo2.png" alt="">
-          <h2>Barter|Better</h2>
-        </div>
-        <button type="submit" class="btn btn-danger" id="sidebar-close-btn"> <i class="fa fa-close"></i> </button>
-      </div>
-      <div class="create-new-post" id="create-new-post">
-        <button class="btn btn-success" id="create-new-post-btn">Create a new post <i class="fa fa-pen"></i> </button>
-      </div>
-    </header>
+<body>  <div class="app-container">
+    <!-- Include standardized header -->
+    <div id="header-container">
+      <!-- Header will be loaded here -->
+    </div>
     <main id="loginMain">
       <div class="form-control" id="form-container">
         <form id="login-form" class="form-control" name="login">
@@ -66,10 +45,19 @@
   <script src="./connect.js"></script>
   <!-- <script defer src="./netlify.js"></script>
   <script defer src="./netlifyModule.js"></script> -->
-  <script defer src="./pagination.js"></script>
+  <script defer src="./pagination.js"></script>  <script src="./js/navbar.js"></script>
   <script defer src="./data.js"></script>
   <script defer src="./app.js"></script>
   <script>
+      // Load header
+      fetch('./header.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('header-container').innerHTML = html;
+          // Initialize navbar after loading
+          setupNavbar();
+        });
+
       document.getElementById('login-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         

@@ -56,21 +56,216 @@ function initMap() {
   geocoder = new google.maps.Geocoder();
 }
 
+// Fetch posts from MongoDB API
+async function fetchPosts(filters = {}) {
+  try {
+    const queryParams = new URLSearchParams({
+      ...filters,
+      page: state.currentPage || 1,
+      limit: 10
+    });
+
+    const response = await fetch(`/api/posts?${queryParams}`);
+    if (!response.ok) throw new Error('Failed to fetch posts');
+    
+    const data = await response.json();
+    state.total = data.total;
+    state.totalPages = data.totalPages;
+    return data.posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
+}
+
 // Format post data
 function formatPostData(post) {
   const safePost = {
     title: post.title || 'Untitled Post',
-    description: post.description || 'No description provided',
+    description: post.body || 'No description provided',
     category: post.category || 'Uncategorized',
     region: post.region || 'Location not specified',
-    username: post.username || 'Anonymous',
-    createdAt: post.createdAt || new Date(),
-    imageUrls: Array.isArray(post.imageUrls) ? post.imageUrls : [],
+    author: post.author || 'Anonymous',
+    createdAt: post.createdAt ? new Date(post.createdAt) : new Date(),
+    image: post.image || './img/logo2.png',
     likes: Array.isArray(post.likes) ? post.likes : [],
     comments: Array.isArray(post.comments) ? post.comments : [],
     _id: post._id || '',
-    price: typeof post.price === 'number' ? post.price : null,
-    condition: post.condition || ''
+    contact: post.contact || '',
+    url: post.url || '#'
+  };
+
+  return `
+    <div class="post-card" data-post-id="${safePost._id}">
+      <div class="post-images">
+        ${safePost.imageUrls.length > 0 
+          ? `<img src="${safePost.imageUrls[0]}" alt="${safePost.title}" class="post-image" onclick="showImageModal('${safePost.imageUrls[0]}')">`
+          : `<img src="./img/logo2.png" alt="Default" class="post-image">`
+        }
+        ${safePost.imageUrls.length > 1 
+          ? `<div class="image-count">+${safePost.imageUrls.length - 1}</div>`
+          : ''
+        }
+      </div>
+      <div class="post-content">
+        <h4>${safePost.title}</h4>
+        ${safePost.price !== null ? `<div class="price-tag">R ${safePost.price.toLocaleString()}</div>` : ''}
+        <div class="location-tag">
+          <i class="fa fa-map-marker"></i>
+          <span>${safePost.region}</span>
+        </div>
+        <p class="post-description">${safePost.description}</p>
+        <div class="post-meta">
+          <span class="badge bg-${getCategoryColor(safePost.category)}">${safePost.category}</span>
+          ${safePost.condition ? `<span class="badge bg-secondary">${safePost.condition}</span>` : ''}
+        </div>
+        <div class="post-footer">
+          <div class="post-info">
+            <small>Posted by ${safePost.username}</small>
+            <br>
+            <small>${formatDate(safePost.createdAt)}</small>
+          </div>
+          <div class="post-actions">
+            <button class="btn btn-sm like-btn ${safePost.likes.includes(userId) ? 'active' : ''}" 
+                    onclick="likePost('${safePost._id}')" title="Like">
+              <i class="fa fa-heart${safePost.likes.includes(userId) ? '' : '-o'}"></i>
+              <span>${safePost.likes.length}</span>
+            </button>
+            <button class="btn btn-sm" onclick="showComments('${safePost._id}')" title="Comments">
+              <i class="fa fa-comment-o"></i>
+              <span>${safePost.comments.length}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Fetch and display posts
+async function fetchPosts() {
+  try {
+    elements.postsContainer.innerHTML = '<div class="loading">Loading posts...</div>';
+    
+    const response = await fetch('/api/posts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const posts = await response.json();
+    if (!Array.isArray(posts)) {
+      throw new Error('Invalid response format');
+    }
+
+    if (posts.length === 0) {
+      elements.postsContainer.innerHTML = `
+        <div class="no-posts">
+          <i class="fa fa-inbox fa-3x"></i>
+          <p>No posts found. Be the first to create a post!</p>
+          <a href="./createpost.html" class="btn btn-primary">Create Post</a>
+        </div>
+      `;
+      elements.postsCount.textContent = '0';
+      return;
+    }
+
+    // Sort posts by creation date (newest first)
+    posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // Update display
+    elements.postsContainer.innerHTML = posts.map(post => formatPostData(post)).join('');
+    elements.postsCount.textContent = posts.length;
+    
+    // Update map if in map view
+    if (state.view === 'map') {
+      updateMapMarkers(posts);
+    }
+
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    elements.postsContainer.innerHTML = `
+      <div class="error-message">
+        <i class="fa fa-exclamation-triangle"></i>
+        <p>Sorry, there was an error loading posts. Please try again later.</p>
+        <button onclick="fetchPosts()" class="btn btn-primary">Retry</button>
+      </div>
+    `;
+  }
+}
+
+// Load posts from server
+async function loadPosts() {
+  try {
+    const response = await fetch('/api/posts');
+    if (!response.ok) throw new Error('Failed to fetch posts');
+    
+    const data = await response.json();
+    displayPosts(data.posts || []);
+  } catch (error) {
+    console.error('Error loading posts:', error);
+    elements.postsContainer.innerHTML = `
+      <div class="alert alert-danger">
+        Error loading posts. Please try again later.
+      </div>
+    `;
+  }
+}
+
+// Display posts in container
+function displayPosts(posts) {
+  if (!posts.length) {
+    elements.postsContainer.innerHTML = `
+      <div class="alert alert-info">
+        No posts found.
+      </div>
+    `;
+    return;
+  }
+
+  const postsHTML = posts.map(post => `
+    <div class="post-card" data-post-id="${post._id}">
+      <div class="post-image">
+        <img src="${post.image}" alt="${post.title}">
+      </div>
+      <div class="post-content">
+        <h3>${post.title}</h3>
+        <p class="post-description">${post.description}</p>
+        <div class="post-meta">
+          <span class="category">${post.category}</span>
+          <span class="region">${post.region}</span>
+          <span class="author">Posted by ${post.author}</span>
+          <span class="date">${new Date(post.createdAt).toLocaleDateString()}</span>
+        </div>
+        <div class="post-actions">
+          <button class="btn btn-primary contact-btn" data-contact="${post.contact}">
+            Contact
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  elements.postsContainer.innerHTML = postsHTML;
+  if (elements.postsCount) {
+    elements.postsCount.textContent = `${posts.length} posts found`;
+  }
+}
+
+// Format post data
+function formatPostData(post) {
+  const safePost = {
+    title: post.title || 'Untitled Post',
+    description: post.body || 'No description provided',
+    category: post.category || 'Uncategorized',
+    region: post.region || 'Location not specified',
+    author: post.author || 'Anonymous',
+    createdAt: post.createdAt ? new Date(post.createdAt) : new Date(),
+    image: post.image || './img/logo2.png',
+    likes: Array.isArray(post.likes) ? post.likes : [],
+    comments: Array.isArray(post.comments) ? post.comments : [],
+    _id: post._id || '',
+    contact: post.contact || '',
+    url: post.url || '#'
   };
 
   return `

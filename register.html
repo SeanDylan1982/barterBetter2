@@ -12,6 +12,10 @@
 </head>
 <body>
   <div class="app-container">
+    <!-- Include standardized header -->
+    <div id="header-container">
+      <!-- Header will be loaded here -->
+    </div>
     <header id="header">
       <button type="submit" value="submit" class="btn btn-regular" id="login"><div data-netlify-identity-button></div></button>
       <div class="login-container" id="login">
@@ -69,6 +73,17 @@
 
   <script defer src="./data.js"></script>
   <script defer src="./app.js"></script>
+  <script src="./js/navbar.js"></script>
+  <script>
+    // Load header
+    fetch('./header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-container').innerHTML = html;
+        // Initialize navbar after loading
+        setupNavbar();
+      });
+  </script>
   <script>
       document.getElementById('register-form').addEventListener('submit', async function(e) {
         e.preventDefault();

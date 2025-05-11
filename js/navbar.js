@@ -2,7 +2,7 @@
 const setupNavbar = () => {
   const userId = localStorage.getItem('userId');
   const username = localStorage.getItem('username');
-  const viewControls = document.querySelector('.view-controls');
+  const createPost = document.querySelector('.create-post');
   const authButtons = document.querySelector('.auth-buttons');
   const userMenu = document.querySelector('.user-menu');
   
@@ -10,7 +10,8 @@ const setupNavbar = () => {
   if (userId && username) {
     // User is logged in
     authButtons.style.display = 'none';
-    userMenu.style.display = 'flex';
+    createPost.style.display = 'block';
+    userMenu.style.display = 'block';
     
     // Set username in dropdown
     const usernameSpan = userMenu.querySelector('.username');
@@ -25,27 +26,8 @@ const setupNavbar = () => {
   } else {
     // User is logged out
     authButtons.style.display = 'flex';
+    createPost.style.display = 'none';
     userMenu.style.display = 'none';
-  }
-
-  // Show view controls only on index and timeline pages
-  const isListingPage = window.location.pathname.includes('index.html') || 
-                       window.location.pathname.includes('timeline.html');
-  viewControls.style.display = isListingPage ? 'flex' : 'none';
-  
-  // Handle view toggle
-  if (isListingPage) {
-    const viewButtons = document.querySelectorAll('.view-controls button');
-    viewButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        viewButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        
-        // Update view state
-        document.querySelector('#posts-container').className = 
-          button.dataset.view === 'grid' ? 'posts-grid' : 'posts-list';
-      });
-    });
   }
   
   // Handle filter toggle
