@@ -11,11 +11,11 @@
   "dependencies": {
     "barterbetter": "file:",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.4",
     "cloudinary": "^2.6.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "mongodb": "^5.5.0",
     "multer": "^1.4.5-lts.2"
   },
